@@ -42,3 +42,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define KEYBALL_CPI_DEFAULT 1000
 #define KEYBALL_SCROLL_DEV_DEFAULT 5
+
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+
+#define NO_MUSIC_MODE
+#define LAYER_STATE_8BIT
