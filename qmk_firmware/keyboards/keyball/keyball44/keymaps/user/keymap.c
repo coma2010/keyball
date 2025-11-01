@@ -35,6 +35,8 @@ const uint16_t PROGMEM my_dm[] = {KC_D, KC_M, COMBO_END};
 const uint16_t PROGMEM my_di[] = {KC_D, KC_I, COMBO_END};
 const uint16_t PROGMEM my_dk[] = {KC_D, KC_K, COMBO_END};
 const uint16_t PROGMEM my_dsc[] = {KC_D, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM my_dh[] = {KC_D, KC_H, COMBO_END};
+const uint16_t PROGMEM my_dn[] = {KC_D, KC_N, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(my_ui, KC_UP),
@@ -50,6 +52,8 @@ combo_t key_combos[] = {
     COMBO(my_dk, S(KC_RBRC)),
     COMBO(my_dm, KC_LBRC),
     COMBO(my_dsc, KC_RBRC),
+    COMBO(my_dh, S(KC_QUOT)),
+    COMBO(my_dn, KC_QUOT),
 };
 
 // enum combos
