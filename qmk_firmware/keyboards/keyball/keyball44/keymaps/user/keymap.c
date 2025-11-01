@@ -22,31 +22,59 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // combo setting
 #ifdef COMBO_ENABLE
-enum combos
-{
-  UI_UP,
-  MC_DOWN,
-  HJ_LEFT,
-  JK_RIGHT,
-  KL_MOUSE1,
-  LSCLN_MOUSE2,
-};
-
 const uint16_t PROGMEM my_ui[] = {KC_U, KC_I, COMBO_END};
 const uint16_t PROGMEM my_mco[] = {KC_M, KC_COMM, COMBO_END};
 const uint16_t PROGMEM my_hj[] = {KC_H, KC_J, COMBO_END};
 const uint16_t PROGMEM my_jk[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM my_mouse1[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM my_mouse2[] = {KC_M, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM my_kl[] = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM my_msc[] = {KC_M, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM my_du[] = {KC_D, KC_U, COMBO_END};
+const uint16_t PROGMEM : my_dj[] = {KC_D, KC_J, COMBO_END};
+const uint16_t PROGMEM my_dm[] = {KC_D, KC_M, COMBO_END};
+const uint16_t PROGMEM my_di[] = {KC_D, KC_I, COMBO_END};
+const uint16_t PROGMEM my_dl[] = {KC_D, KC_L, COMBO_END};
+const uint16_t PROGMEM my_dsc[] = {KC_D, KC_SCLN, COMBO_END};
 
 combo_t key_combos[] = {
-    [UI_UP] = COMBO(my_ui, KC_UP),
-    [MC_DOWN] = COMBO(my_mco, KC_DOWN),
-    [HJ_LEFT] = COMBO(my_hj, KC_LEFT),
-    [JK_RIGHT] = COMBO(my_jk, KC_RGHT),
-    [KL_MOUSE1] = COMBO(my_mouse1, KC_BTN1),
-    [LSCLN_MOUSE2] = COMBO(my_mouse2, KC_BTN2),
-};
+    [UP] = COMBO(my_ui, KC_UP),
+    [DOWN] = COMBO(my_mco, KC_DOWN),
+    [LEFT] = COMBO(my_hj, KC_LEFT),
+    [RIGHT] = COMBO(my_jk, KC_RGHT),
+    [MOUSE1] = COMBO(my_kl, KC_BTN1),
+    [MOUSE2] = COMBO(my_msc, KC_BTN2),
+    [S8] = COMBO(my_du, S(KC_8)),
+    [S9] = COMBO(my_du, S(KC_9)),
+    [LSBRC] = COMBO(my_dj, S(KC_LBRC)),
+    [RSBRC] = COMBO(my_dk, S(KC_RBRC)),
+    [LBRC] = COMBO(my_dm, KC_LBRC),
+    [RBRC] = COMBO(my_dm, KC_RBRC),
+}
+
+// enum combos
+// {
+//   UI_UP,
+//   MC_DOWN,
+//   HJ_LEFT,
+//   JK_RIGHT,
+//   KL_MOUSE1,
+//   LSCLN_MOUSE2,
+// };
+
+// const uint16_t PROGMEM my_ui[] = {KC_U, KC_I, COMBO_END};
+// const uint16_t PROGMEM my_mco[] = {KC_M, KC_COMM, COMBO_END};
+// const uint16_t PROGMEM my_hj[] = {KC_H, KC_J, COMBO_END};
+// const uint16_t PROGMEM my_jk[] = {KC_J, KC_K, COMBO_END};
+// const uint16_t PROGMEM my_mouse1[] = {KC_K, KC_L, COMBO_END};
+// const uint16_t PROGMEM my_mouse2[] = {KC_M, KC_SCLN, COMBO_END};
+
+// combo_t key_combos[] = {
+//     [UI_UP] = COMBO(my_ui, KC_UP),
+//     [MC_DOWN] = COMBO(my_mco, KC_DOWN),
+//     [HJ_LEFT] = COMBO(my_hj, KC_LEFT),
+//     [JK_RIGHT] = COMBO(my_jk, KC_RGHT),
+//     [KL_MOUSE1] = COMBO(my_mouse1, KC_BTN1),
+//     [LSCLN_MOUSE2] = COMBO(my_mouse2, KC_BTN2),
+// };
 #endif
 
 // clang-format off
