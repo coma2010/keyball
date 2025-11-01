@@ -33,7 +33,7 @@ const uint16_t PROGMEM my_du[] = {KC_D, KC_U, COMBO_END};
 const uint16_t PROGMEM my_dj[] = {KC_D, KC_J, COMBO_END};
 const uint16_t PROGMEM my_dm[] = {KC_D, KC_M, COMBO_END};
 const uint16_t PROGMEM my_di[] = {KC_D, KC_I, COMBO_END};
-const uint16_t PROGMEM my_dl[] = {KC_D, KC_L, COMBO_END};
+const uint16_t PROGMEM my_dk[] = {KC_D, KC_K, COMBO_END};
 const uint16_t PROGMEM my_dsc[] = {KC_D, KC_SCLN, COMBO_END};
 
 combo_t key_combos[] = {
