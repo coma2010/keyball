@@ -48,3 +48,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define NO_MUSIC_MODE
 #define LAYER_STATE_8BIT
+#define COMBO_ONLY_FROM_LAYER 0
