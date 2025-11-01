@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 // combo setting
-#ifdef COMBO_ENABLE
+// #ifdef COMBO_ENABLE
 const uint16_t PROGMEM my_ui[] = {KC_U, KC_I, COMBO_END};
 const uint16_t PROGMEM my_mco[] = {KC_M, KC_COMM, COMBO_END};
 const uint16_t PROGMEM my_hj[] = {KC_H, KC_J, COMBO_END};
@@ -29,7 +29,7 @@ const uint16_t PROGMEM my_jk[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM my_kl[] = {KC_K, KC_L, COMBO_END};
 const uint16_t PROGMEM my_msc[] = {KC_M, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM my_du[] = {KC_D, KC_U, COMBO_END};
-const uint16_t PROGMEM : my_dj[] = {KC_D, KC_J, COMBO_END};
+const uint16_t PROGMEM my_dj[] = {KC_D, KC_J, COMBO_END};
 const uint16_t PROGMEM my_dm[] = {KC_D, KC_M, COMBO_END};
 const uint16_t PROGMEM my_di[] = {KC_D, KC_I, COMBO_END};
 const uint16_t PROGMEM my_dl[] = {KC_D, KC_L, COMBO_END};
@@ -75,7 +75,7 @@ combo_t key_combos[] = {
 //     [KL_MOUSE1] = COMBO(my_mouse1, KC_BTN1),
 //     [LSCLN_MOUSE2] = COMBO(my_mouse2, KC_BTN2),
 // };
-#endif
+// #endif
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
