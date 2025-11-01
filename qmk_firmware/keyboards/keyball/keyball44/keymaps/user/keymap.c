@@ -27,7 +27,7 @@ const uint16_t PROGMEM my_mco[] = {KC_M, KC_COMM, COMBO_END};
 const uint16_t PROGMEM my_hj[] = {KC_H, KC_J, COMBO_END};
 const uint16_t PROGMEM my_jk[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM my_kl[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM my_msc[] = {KC_M, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM my_lsc[] = {KC_L, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM my_codot[] = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM my_du[] = {KC_D, KC_U, COMBO_END};
 const uint16_t PROGMEM my_dj[] = {KC_D, KC_J, COMBO_END};
@@ -44,7 +44,7 @@ combo_t key_combos[] = {
     COMBO(my_hj, KC_LEFT),
     COMBO(my_jk, KC_RGHT),
     COMBO(my_kl, KC_BTN1),
-    COMBO(my_msc, KC_BTN2),
+    COMBO(my_lsc, KC_BTN2),
     COMBO(my_codot, SCRL_MO),
     COMBO(my_du, S(KC_8)),
     COMBO(my_du, S(KC_9)),
