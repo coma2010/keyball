@@ -37,19 +37,19 @@ const uint16_t PROGMEM my_dl[] = {KC_D, KC_L, COMBO_END};
 const uint16_t PROGMEM my_dsc[] = {KC_D, KC_SCLN, COMBO_END};
 
 combo_t key_combos[] = {
-    [UP] = COMBO(my_ui, KC_UP),
-    [DOWN] = COMBO(my_mco, KC_DOWN),
-    [LEFT] = COMBO(my_hj, KC_LEFT),
-    [RIGHT] = COMBO(my_jk, KC_RGHT),
-    [MOUSE1] = COMBO(my_kl, KC_BTN1),
-    [MOUSE2] = COMBO(my_msc, KC_BTN2),
-    [KEY7] = COMBO(my_codot, SCRL_MO),
-    [S8] = COMBO(my_du, S(KC_8)),
-    [S9] = COMBO(my_du, S(KC_9)),
-    [LSBRC] = COMBO(my_dj, S(KC_LBRC)),
-    [RSBRC] = COMBO(my_dk, S(KC_RBRC)),
-    [LBRC] = COMBO(my_dm, KC_LBRC),
-    [RBRC] = COMBO(my_dsc, KC_RBRC),
+    COMBO(my_ui, KC_UP),
+    COMBO(my_mco, KC_DOWN),
+    COMBO(my_hj, KC_LEFT),
+    COMBO(my_jk, KC_RGHT),
+    COMBO(my_kl, KC_BTN1),
+    COMBO(my_msc, KC_BTN2),
+    COMBO(my_codot, SCRL_MO),
+    COMBO(my_du, S(KC_8)),
+    COMBO(my_du, S(KC_9)),
+    COMBO(my_dj, S(KC_LBRC)),
+    COMBO(my_dk, S(KC_RBRC)),
+    COMBO(my_dm, KC_LBRC),
+    COMBO(my_dsc, KC_RBRC),
 }
 
 // enum combos
