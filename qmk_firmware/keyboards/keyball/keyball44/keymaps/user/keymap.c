@@ -50,7 +50,7 @@ combo_t key_combos[] = {
     COMBO(my_dk, S(KC_RBRC)),
     COMBO(my_dm, KC_LBRC),
     COMBO(my_dsc, KC_RBRC),
-}
+};
 
 // enum combos
 // {
