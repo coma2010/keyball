@@ -27,7 +27,7 @@ const uint16_t PROGMEM my_mco[] = {KC_M, KC_COMM, COMBO_END};
 const uint16_t PROGMEM my_hj[] = {KC_H, KC_J, COMBO_END};
 const uint16_t PROGMEM my_jk[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM my_kl[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM my_lsc[] = {KC_L, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM my_lmins[] = {KC_L, KC_MINUS, COMBO_END};
 const uint16_t PROGMEM my_codot[] = {KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM my_du[] = {KC_D, KC_U, COMBO_END};
 const uint16_t PROGMEM my_dj[] = {KC_D, KC_J, COMBO_END};
@@ -44,18 +44,18 @@ combo_t key_combos[] = {
     COMBO(my_hj, KC_LEFT),
     COMBO(my_jk, KC_RGHT),
     COMBO(my_kl, KC_BTN1),
-    COMBO(my_lsc, SCRL_MO),
+    COMBO(my_lmins, SCRL_MO),
     COMBO(my_codot, KC_BTN2),
     // COMBO(my_lsc, KC_BTN2),
     // COMBO(my_codot, SCRL_MO),
-    COMBO(my_du, S(KC_8)),
-    COMBO(my_du, S(KC_9)),
-    COMBO(my_dj, S(KC_LBRC)),
-    COMBO(my_dk, S(KC_RBRC)),
-    COMBO(my_dm, KC_LBRC),
-    COMBO(my_dsc, KC_RBRC),
-    COMBO(my_dh, S(KC_QUOT)),
-    COMBO(my_dn, KC_QUOT),
+    // COMBO(my_du, S(KC_8)),
+    // COMBO(my_di, S(KC_9)),
+    // COMBO(my_dj, S(KC_LBRC)),
+    // COMBO(my_dk, S(KC_RBRC)),
+    // COMBO(my_dm, KC_LBRC),
+    // COMBO(my_dsc, KC_RBRC),
+    // COMBO(my_dh, S(KC_QUOT)),
+    // COMBO(my_dn, KC_QUOT),
 };
 
 // enum combos
@@ -85,12 +85,38 @@ combo_t key_combos[] = {
 // };
 // #endif
 
+// # define OVR_TGL KEY_OVERRIDE_TOGGLE
+
+// const key_override_t at_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_2, JP_AT);
+// const key_override_t rprn_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_0, JP_RPRN);
+// const key_override_t lcbr_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, JP_LCBR);
+// const key_override_t dquo_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, JP_DQUO);
+// const key_override_t lbrc_key_override = ko_make_with_layers_and_negmods(0, KC_LBRC, JP_LBRC, ~0, (uint8_t) MOD_MASK_SHIFT);
+// const key_override_t quot_key_override = ko_make_with_layers_and_negmods(0, KC_QUOT, JP_QUOT, ~0, (uint8_t) MOD_MASK_SHIFT);
+
+// const key_override_t **key_overrides = (const key_override_t *[]){
+//     &at_key_override,
+//     &rprn_key_override,
+//     &lcbr_key_override,
+//     &dquo_key_override,
+//     &lbrc_key_override,
+//     &quot_key_override,
+//     NULL
+// };
+
+// const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+//     [_DEFAULT] = LAYOUT(
+//         KC_2,    KC_0,    KC_LBRC, KC_QUOT,
+//         KC_LSFT, KC_LCTL, OVR_TGL, KC_NO
+//     ),
+// };
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default (VIA)
   [0] = LAYOUT_universal(
     KC_ESC   , KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     , KC_DEL   ,
-    KC_TAB   , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_SCLN  , S(KC_7)  ,
+    KC_TAB   , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_MINS  , S(KC_7)  ,
     KC_LSFT  , KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                                        KC_N     , KC_M     , KC_COMM  , KC_DOT   , KC_SLSH  , KC_INT1  ,
               KC_LALT,KC_LGUI,LCTL_T(KC_LNG2)     ,LT(1,KC_SPC),LT(3,KC_LNG1),                  KC_BSPC,LT(2,KC_ENT), RCTL_T(KC_LNG2),     KC_RALT  , KC_PSCR
   ),
