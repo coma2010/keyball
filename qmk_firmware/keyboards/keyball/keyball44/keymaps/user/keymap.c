@@ -22,94 +22,52 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // combo setting
 // #ifdef COMBO_ENABLE
-const uint16_t PROGMEM my_ui[] = {KC_U, KC_I, COMBO_END};
-const uint16_t PROGMEM my_mco[] = {KC_M, KC_COMM, COMBO_END};
-const uint16_t PROGMEM my_hj[] = {KC_H, KC_J, COMBO_END};
-const uint16_t PROGMEM my_jk[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM my_kl[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM my_lmins[] = {KC_L, KC_MINUS, COMBO_END};
-const uint16_t PROGMEM my_codot[] = {KC_COMMA, KC_DOT, COMBO_END};
-const uint16_t PROGMEM my_du[] = {KC_D, KC_U, COMBO_END};
-const uint16_t PROGMEM my_dj[] = {KC_D, KC_J, COMBO_END};
-const uint16_t PROGMEM my_dm[] = {KC_D, KC_M, COMBO_END};
-const uint16_t PROGMEM my_di[] = {KC_D, KC_I, COMBO_END};
-const uint16_t PROGMEM my_dk[] = {KC_D, KC_K, COMBO_END};
-const uint16_t PROGMEM my_dsc[] = {KC_D, KC_SCLN, COMBO_END};
-const uint16_t PROGMEM my_dh[] = {KC_D, KC_H, COMBO_END};
-const uint16_t PROGMEM my_dn[] = {KC_D, KC_N, COMBO_END};
+const uint16_t PROGMEM my_up[] = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM my_down[] = {KC_M, KC_COMM, COMBO_END};
+const uint16_t PROGMEM my_left[] = {KC_H, KC_J, COMBO_END};
+const uint16_t PROGMEM my_right[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM my_btn1[] = {KC_K, KC_L, COMBO_END};
+const uint16_t PROGMEM my_btn2[] = {KC_COMMA, KC_DOT, COMBO_END};
+const uint16_t PROGMEM my_scrl_mo[] = {KC_DOT, KC_SLSH, COMBO_END};
+const uint16_t PROGMEM my_lprn[] = {KC_D, KC_Y, COMBO_END};
+const uint16_t PROGMEM my_rprn[] = {KC_D, KC_U, COMBO_END};
+const uint16_t PROGMEM my_lcbr[] = {KC_D, KC_H, COMBO_END};
+const uint16_t PROGMEM my_rcbr[] = {KC_D, KC_J, COMBO_END};
+const uint16_t PROGMEM my_lbrc[] = {KC_D, KC_N, COMBO_END};
+const uint16_t PROGMEM my_rbrc[] = {KC_D, KC_M, COMBO_END};
+const uint16_t PROGMEM my_dquo[] = {KC_D, KC_K, COMBO_END};
+const uint16_t PROGMEM my_quot[] = {KC_D, KC_I, COMBO_END};
+const uint16_t PROGMEM my_esc[] = {KC_Q, KC_I, COMBO_END};
 
 combo_t key_combos[] = {
-    COMBO(my_ui, KC_UP),
-    COMBO(my_mco, KC_DOWN),
-    COMBO(my_hj, KC_LEFT),
-    COMBO(my_jk, KC_RGHT),
-    COMBO(my_kl, KC_BTN1),
-    COMBO(my_lmins, SCRL_MO),
-    COMBO(my_codot, KC_BTN2),
-    // COMBO(my_lsc, KC_BTN2),
-    // COMBO(my_codot, SCRL_MO),
-    // COMBO(my_du, S(KC_8)),
-    // COMBO(my_di, S(KC_9)),
-    // COMBO(my_dj, S(KC_LBRC)),
-    // COMBO(my_dk, S(KC_RBRC)),
-    // COMBO(my_dm, KC_LBRC),
-    // COMBO(my_dsc, KC_RBRC),
-    // COMBO(my_dh, S(KC_QUOT)),
-    // COMBO(my_dn, KC_QUOT),
+    COMBO(my_up, KC_UP),
+    COMBO(my_down, KC_DOWN),
+    COMBO(my_left, KC_LEFT),
+    COMBO(my_right, KC_RGHT),
+    COMBO(my_btn1, KC_BTN1),
+    COMBO(my_btn2, KC_BTN2),
+    COMBO(my_scrl_mo, SCRL_MO),
+    COMBO(my_lprn, KC_LPRN),
+    COMBO(my_rprn, KC_RPRN),
+    COMBO(my_lcbr, KC_LCBR),
+    COMBO(my_rcbr, KC_RCBR),
+    COMBO(my_lbrc, KC_LBRC),
+    COMBO(my_rbrc, KC_RBRC),
+    COMBO(my_dquo, KC_DQUO),
+    COMBO(my_quot, KC_QUOT),
+    COMBO(my_esc, KC_ESC),
 };
 
-// enum combos
-// {
-//   UI_UP,
-//   MC_DOWN,
-//   HJ_LEFT,
-//   JK_RIGHT,
-//   KL_MOUSE1,
-//   LSCLN_MOUSE2,
-// };
-
-// const uint16_t PROGMEM my_ui[] = {KC_U, KC_I, COMBO_END};
-// const uint16_t PROGMEM my_mco[] = {KC_M, KC_COMM, COMBO_END};
-// const uint16_t PROGMEM my_hj[] = {KC_H, KC_J, COMBO_END};
-// const uint16_t PROGMEM my_jk[] = {KC_J, KC_K, COMBO_END};
-// const uint16_t PROGMEM my_mouse1[] = {KC_K, KC_L, COMBO_END};
-// const uint16_t PROGMEM my_mouse2[] = {KC_M, KC_SCLN, COMBO_END};
-
-// combo_t key_combos[] = {
-//     [UI_UP] = COMBO(my_ui, KC_UP),
-//     [MC_DOWN] = COMBO(my_mco, KC_DOWN),
-//     [HJ_LEFT] = COMBO(my_hj, KC_LEFT),
-//     [JK_RIGHT] = COMBO(my_jk, KC_RGHT),
-//     [KL_MOUSE1] = COMBO(my_mouse1, KC_BTN1),
-//     [LSCLN_MOUSE2] = COMBO(my_mouse2, KC_BTN2),
-// };
-// #endif
-
 // # define OVR_TGL KEY_OVERRIDE_TOGGLE
+// #include "key_override.h"
 
-// const key_override_t at_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_2, JP_AT);
-// const key_override_t rprn_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_0, JP_RPRN);
-// const key_override_t lcbr_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, JP_LCBR);
-// const key_override_t dquo_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUOT, JP_DQUO);
-// const key_override_t lbrc_key_override = ko_make_with_layers_and_negmods(0, KC_LBRC, JP_LBRC, ~0, (uint8_t) MOD_MASK_SHIFT);
-// const key_override_t quot_key_override = ko_make_with_layers_and_negmods(0, KC_QUOT, JP_QUOT, ~0, (uint8_t) MOD_MASK_SHIFT);
+// Shift + Backspace -> Delete
+const key_override_t delete_on_shift_backspace = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 
-// const key_override_t **key_overrides = (const key_override_t *[]){
-//     &at_key_override,
-//     &rprn_key_override,
-//     &lcbr_key_override,
-//     &dquo_key_override,
-//     &lbrc_key_override,
-//     &quot_key_override,
-//     NULL
-// };
-
-// const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-//     [_DEFAULT] = LAYOUT(
-//         KC_2,    KC_0,    KC_LBRC, KC_QUOT,
-//         KC_LSFT, KC_LCTL, OVR_TGL, KC_NO
-//     ),
-// };
+// 必須: オーバーライド配列を定義
+const key_override_t *key_overrides[] = {
+    &delete_on_shift_backspace,
+};
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
