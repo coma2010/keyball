@@ -37,7 +37,7 @@ const uint16_t PROGMEM my_lbrc[] = {KC_D, KC_N, COMBO_END};
 const uint16_t PROGMEM my_rbrc[] = {KC_D, KC_M, COMBO_END};
 const uint16_t PROGMEM my_dquo[] = {KC_D, KC_K, COMBO_END};
 const uint16_t PROGMEM my_quot[] = {KC_D, KC_I, COMBO_END};
-const uint16_t PROGMEM my_esc[] = {KC_Q, KC_I, COMBO_END};
+const uint16_t PROGMEM my_esc[] = {KC_Q, KC_W, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(my_up, KC_UP),
@@ -47,14 +47,14 @@ combo_t key_combos[] = {
     COMBO(my_btn1, KC_BTN1),
     COMBO(my_btn2, KC_BTN2),
     COMBO(my_scrl_mo, SCRL_MO),
-    COMBO(my_lprn, KC_LPRN),
-    COMBO(my_rprn, KC_RPRN),
-    COMBO(my_lcbr, KC_LCBR),
-    COMBO(my_rcbr, KC_RCBR),
-    COMBO(my_lbrc, KC_LBRC),
-    COMBO(my_rbrc, KC_RBRC),
-    COMBO(my_dquo, KC_DQUO),
-    COMBO(my_quot, KC_QUOT),
+    COMBO(my_lprn, S(KC_8)),
+    COMBO(my_rprn, S(KC_9)),
+    COMBO(my_lcbr, S(KC_LBRC)),
+    COMBO(my_rcbr, S(KC_RBRC)),
+    COMBO(my_lbrc, KC_RBRC),
+    COMBO(my_rbrc, KC_NUHS),
+    COMBO(my_dquo, S(KC_2)),
+    COMBO(my_quot, S(KC_7)),
     COMBO(my_esc, KC_ESC),
 };
 
