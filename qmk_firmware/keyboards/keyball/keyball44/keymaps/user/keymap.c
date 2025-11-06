@@ -64,9 +64,10 @@ combo_t key_combos[] = {
 // Shift + Backspace -> Delete
 const key_override_t delete_on_shift_backspace = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 
-// 必須: オーバーライド配列を定義
-const key_override_t *key_overrides[] = {
+// 必須: オーバーライド配列を定義 (終端は NULL)
+const key_override_t **key_overrides = (const key_override_t *[]){
     &delete_on_shift_backspace,
+    NULL,
 };
 
 // clang-format off
