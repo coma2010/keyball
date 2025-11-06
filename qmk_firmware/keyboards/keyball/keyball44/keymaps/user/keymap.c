@@ -135,15 +135,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
   switch (keycode)
   {
-  case KC_LANG8:
+  case KC_LNG8:
     if (record->event.pressed)
     {
-      tap_code(KC_LANG1);
+      tap_code(KC_LNG1);
     }
     else
     {
       tap_code(KC_ENT);
-      tap_code(KC_LANG2);
+      tap_code(KC_LNG2);
     }
     return false;
   }
