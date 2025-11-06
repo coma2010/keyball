@@ -131,6 +131,25 @@ layer_state_t layer_state_set_user(layer_state_t state)
   return state;
 }
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+  switch (keycode)
+  {
+  case KC_LANG8:
+    if (record->event.pressed)
+    {
+      tap_code(KC_LANG1);
+    }
+    else
+    {
+      tap_code(KC_ENT);
+      tap_code(KC_LANG2);
+    }
+    return false;
+  }
+  return true;
+}
+
 #ifdef OLED_ENABLE
 
 #include "lib/oledkit/oledkit.h"
