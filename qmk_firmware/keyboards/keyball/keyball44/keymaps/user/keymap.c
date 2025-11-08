@@ -138,12 +138,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case KC_LNG8:
     if (record->event.pressed)
     {
-      tap_code(KC_LNG1);
+      tap_code(KC_LNG2);
     }
     else
     {
       tap_code(KC_ENT);
-      tap_code(KC_LNG2);
+      tap_code(KC_LNG1);
     }
     return false;
   }
