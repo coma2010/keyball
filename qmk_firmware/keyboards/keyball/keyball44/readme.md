@@ -18,3 +18,8 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 ## Special keycodes
 
 See [Special Keycode](../lib/keyball/keycodes.md) file.
+
+## User keymap notes
+
+The `user` keymap (`keymaps/user`) assigns `KC_LNG8` to emit a grave accent on press and a `Ctrl+Enter` chord followed by grave on release.  
+The release sequence now uses `tap_code16(C(KC_M))` to send the combined modifier safely for firmware versions that treat warnings as errors.

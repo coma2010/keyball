@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
+// Keyball44 custom keymap: defines combos, overrides, and KC_LNG8 macro behavior.
+
 // combo setting
 // #ifdef COMBO_ENABLE
 const uint16_t PROGMEM my_up[] = {KC_U, KC_I, COMBO_END};
@@ -144,7 +146,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     else
     {
       // tap_code(KC_ENT);
-      tap_code(C(KC_M));
+      tap_code16(C(KC_M));
       tap_code(KC_GRV);
       // tap_code(KC_LNG1);
     }
