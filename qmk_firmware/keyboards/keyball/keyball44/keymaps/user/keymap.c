@@ -144,6 +144,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     else
     {
       // tap_code(KC_ENT);
+      tap_code(C(KC_M));
       tap_code(KC_GRV);
       // tap_code(KC_LNG1);
     }
