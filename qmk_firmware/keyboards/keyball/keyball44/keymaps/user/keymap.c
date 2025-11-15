@@ -133,6 +133,8 @@ layer_state_t layer_state_set_user(layer_state_t state)
   return state;
 }
 
+static uint16_t lng8_timer = 0; // Tracks tap vs hold window for KC_LNG8.
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
   switch (keycode)
@@ -141,14 +143,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if (record->event.pressed)
     {
       tap_code(KC_GRV);
-      // tap_code(KC_LNG2);
+      lng8_timer = timer_read();
     }
     else
     {
-      // tap_code(KC_ENT);
-      tap_code16(C(KC_M));
-      tap_code(KC_GRV);
-      // tap_code(KC_LNG1);
+      if (timer_elapsed(lng8_timer) <= TAPPING_TERM)
+      {
+        tap_code(KC_GRV);
+        tap_code(KC_ENT);
+      }
+      else
+      {
+        // tap_code(KC_LNG2);
+        tap_code16(C(KC_M));
+        tap_code(KC_GRV);
+        // tap_code(KC_LNG1);
+      }
     }
     return false;
   }
