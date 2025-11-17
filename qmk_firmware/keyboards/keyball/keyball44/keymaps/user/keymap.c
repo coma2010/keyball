@@ -76,8 +76,8 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // keymap for default (VIA)
   [0] = LAYOUT_universal(
-    KC_ESC   , KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     , KC_DEL   ,
-    KC_TAB   , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_MINS  , S(KC_7)  ,
+    KC_ESC   , KC_Q     , KC_W     , KC_E     , KC_R     , KC_T     ,                                        KC_Y     , KC_U     , KC_I     , KC_O     , KC_P     , KC_BS   ,
+    KC_TAB   , KC_A     , KC_S     , KC_D     , KC_F     , KC_G     ,                                        KC_H     , KC_J     , KC_K     , KC_L     , KC_MINS  , KC_ENGT  ,
     KC_LSFT  , KC_Z     , KC_X     , KC_C     , KC_V     , KC_B     ,                                        KC_N     , KC_M     , KC_COMM  , KC_DOT   , KC_SLSH  , KC_INT1  ,
               KC_LALT,KC_LGUI,LCTL_T(KC_LNG2)     ,LT(1,KC_SPC),LT(3,KC_LNG1),                  KC_BSPC,LT(2,KC_ENT), RCTL_T(KC_LNG2),     KC_RALT  , KC_PSCR
   ),
@@ -134,6 +134,7 @@ layer_state_t layer_state_set_user(layer_state_t state)
 }
 
 static uint16_t lng8_timer = 0; // Tracks tap vs hold window for KC_LNG8.
+static bool lng8_pressed = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
@@ -142,25 +143,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case KC_LNG8:
     if (record->event.pressed)
     {
-      tap_code(KC_GRV);
       lng8_timer = timer_read();
+      lng8_pressed = true;
     }
     else
     {
       if (timer_elapsed(lng8_timer) <= TAPPING_TERM)
       {
-        tap_code(KC_GRV);
+        // tap_code(KC_GRV);
+        lng8_pressed = false;
         tap_code(KC_ENT);
       }
       else
       {
-        // tap_code(KC_LNG2);
         tap_code16(C(KC_M));
         tap_code(KC_GRV);
-        // tap_code(KC_LNG1);
+        // tap_code(KC_LNG2);
+        // tap_code(KC_LNG1); // 確実に英数にする
       }
     }
     return false;
+    break;
+  default:
+    if (record->event.pressed)
+    {
+      if (lng8_pressed)
+      {
+        if (timer_elapsed(lng8_timer) > TAPPING_TERM)
+        {
+          /* code */
+          tap_code(KC_GRV);
+          lng8_pressed = false;
+        }
+      }
+    }
+    break;
   }
   return true;
 }
