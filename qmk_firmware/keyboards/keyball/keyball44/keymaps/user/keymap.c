@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUMBER] = LAYOUT_universal(
         _______, LSFT_T(KC_1), KC_LBRC, LSFT_T(KC_3), LSFT_T(KC_4), LSFT_T(KC_5), KC_EQL, LSFT_T(KC_6), LSFT_T(KC_8), KC_MINS, LSFT_T(KC_MINS), _______,
         _______, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, _______,
-        _______, KC_RBRC, KC_BSLS, LSFT_T(KC_RBRC), LSFT_T(KC_BSLS), LSFT_T(KC_SCLN), LSFT_T(KC_EQL), _______, _______,
+        _______, KC_RBRC, KC_BSLS, LSFT_T(KC_RBRC), LSFT_T(KC_BSLS), LSFT_T(KC_SCLN), LSFT_T(KC_EQL), _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
 
     [_BRACKET] = LAYOUT_universal(
