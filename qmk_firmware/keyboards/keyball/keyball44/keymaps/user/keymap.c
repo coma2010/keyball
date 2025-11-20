@@ -84,6 +84,13 @@ enum layer_number
   _MISC
 };
 
+enum custom_keycodes
+{
+  MO6_USCR = SAFE_RANGE,
+  S_ARW,
+  D_ARW
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // keymap for default (VIA)
     [_DEFAULT] = LAYOUT_universal(
@@ -139,13 +146,6 @@ layer_state_t layer_state_set_user(layer_state_t state)
 
 static uint16_t lng8_timer = 0; // Tracks tap vs hold window for KC_LNG8.
 static bool lng8_pressed = false;
-
-enum custom_keycodes
-{
-  MO6_USCR = SAFE_RANGE,
-  S_ARW,
-  D_ARW
-};
 
 enum key_state
 {
