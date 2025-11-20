@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 #include "quantum.h"
+#include "keymap_japanese.h"
 
 // Keyball44 custom keymap: defines combos, overrides, and KC_LNG8 macro behavior.
 
@@ -87,45 +88,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // keymap for default (VIA)
     [_DEFAULT] = LAYOUT_universal(
         KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
-        KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_MINS, KC_ENT,
-        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_INT1,
-        KC_LALT, KC_LGUI, LCTL_T(KC_LNG2), LT(1, KC_SPC), LT(3, KC_LNG1), KC_BSPC, LT(2, KC_ENT), RCTL_T(KC_LNG2), KC_RALT, KC_PSCR),
+        LSFT_T(KC_TAB), LSFT_T(KC_A), KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), KC_ENT,
+        LCTL_T(KC_LCAP), LCTL_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, RCTL_T(KC_SLSH), KC_INT1,
+        KC_LALT, KC_LGUI, LCTL_T(KC_TAB), KC_LNG8, LT(5, KC_ESC), LSFT_T(KC_BSPC), LT(1, KC_SPC), TG(5)),
 
     [_NUMBER] = LAYOUT_universal(
-        SSNP_FRE, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
-        SSNP_VRT, _______, _______, KC_UP, KC_ENT, KC_DEL, KC_PGUP, KC_BTN1, KC_UP, KC_BTN2, KC_BTN3, KC_F12,
-        SSNP_HOR, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
+        _______, LSFT_T(KC_1), KC_LBRC, LSFT_T(KC_3), LSFT_T(KC_4), LSFT_T(KC_5), KC_EQL, LSFT_T(KC_6), LSFT_T(KC_8), KC_MINS, LSFT_T(KC_MINS), _______,
+        _______, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, _______,
+        _______, KC_RBRC, KC_BSLS, LSFT_T(KC_RBRC), LSFT_T(KC_BSLS), LSFT_T(KC_SCLN), LSFT_T(KC_EQL), _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______),
 
     [_BRACKET] = LAYOUT_universal(
         _______, S(KC_QUOT), KC_7, KC_8, KC_9, S(KC_8), S(KC_9), S(KC_1), S(KC_6), KC_LBRC, S(KC_4), _______,
-        _______, S(KC_SCLN), KC_4, KC_5, KC_6, KC_RBRC, KC_NUHS, KC_MINS, S(KC_EQL), S(KC_3), KC_QUOT, S(KC_2),
-        _______, S(KC_MINS), KC_1, KC_2, KC_3, S(KC_RBRC), S(KC_NUHS), S(KC_INT1), KC_EQL, S(KC_LBRC), S(KC_SLSH), S(KC_INT3),
-        KC_0, KC_DOT, _______, _______, _______, KC_DEL, _______, _______, _______, _______),
+        _______, S(KC_SCLN), KC_4, KC_5, KC_6, KC_RBRC, KC_NUHS, KC_MINS, S(KC_EQL), S(KC_3), KC_QUOT, _______,
+        _______, S(KC_MINS), KC_1, KC_2, KC_3, S(KC_RBRC), S(KC_NUHS), S(KC_INT1), KC_EQL, S(KC_LBRC), S(KC_SLSH), _______,
+        _______, _______, _______, _______, _______, _______, _______, _______),
 
     [_SYMBOL] = LAYOUT_universal(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
+        _______, S_ARW, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, D_ARW, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______),
 
     [_CURSOR] = LAYOUT_universal(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
+        _______, _______, _______, _______, _______, _______, _______, _______),
 
     [_MOUSE] = LAYOUT_universal(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
+        _______, _______, _______, _______, _______, _______, _______, _______),
 
     [_MISC] = LAYOUT_universal(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______),
+        _______, _______, _______, _______, _______, _______, _______, _______),
 };
 // clang-format on
 
@@ -138,6 +139,20 @@ layer_state_t layer_state_set_user(layer_state_t state)
 
 static uint16_t lng8_timer = 0; // Tracks tap vs hold window for KC_LNG8.
 static bool lng8_pressed = false;
+
+enum custom_keycodes
+{
+  MO6_USCR = SAFE_RANGE,
+  S_ARW,
+  D_ARW
+};
+
+enum key_state
+{
+  KEY_STATE_RELEASED = 0,
+  KEY_STATE_PRESSED = 1,
+  KEY_STATE_LONG_PRESSED = 2
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
@@ -159,7 +174,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       }
       else
       {
-        tap_code16(C(KC_M));
+        tap_code16(C(KC_M)); // ctrl+mを送る
         tap_code(KC_GRV);
         // tap_code(KC_LNG2);
         // tap_code(KC_LNG1); // 確実に英数にする
@@ -190,6 +205,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       }
     }
     return false;
+    break;
+  // case MO6_USCR:
+  //   if (record->event.pressed)
+  //   {
+
+  //   }
+  case S_ARW:
+    if (record->event.pressed)
+    {
+      SEND_STRING("->");
+    }
+    break;
+  case D_ARW:
+    if (record->event.pressed)
+    {
+      SEND_STRING("=>");
+    }
     break;
   default:
     if (record->event.pressed)
