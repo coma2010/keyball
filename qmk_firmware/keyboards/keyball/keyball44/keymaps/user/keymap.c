@@ -94,10 +94,9 @@ enum custom_keycodes
 enum
 {
   TD_Q_ESC,
-}
+};
 
-void
-dance_q_finished(tap_dance_state_t *state, void *user_data)
+void dance_q_finished(tap_dance_state_t *state, void *user_data)
 {
   if (state->count == 1)
   {
