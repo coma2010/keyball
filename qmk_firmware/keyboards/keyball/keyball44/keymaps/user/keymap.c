@@ -95,7 +95,8 @@ enum
   TD_LPRIN,
   TD_RPRIN,
   TD_LBRC,
-  TD_RBRC
+  TD_RBRC,
+  TD_QUOT
 };
 
 void dance_lprin(tap_dance_state_t *state, void *user_data)
@@ -148,6 +149,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_RPRIN] = ACTION_TAP_DANCE_FN(dance_rprin),            // 0x5702
     [TD_LBRC] = ACTION_TAP_DANCE_DOUBLE(JP_LBRC, S(JP_LBRC)), // 0x5703
     [TD_RBRC] = ACTION_TAP_DANCE_DOUBLE(JP_RBRC, S(JP_RBRC)), // 0x5704
+    [TD_QUOT] = ACTION_TAP_DANCE_DOUBLE(JP_DQUO, JP_QUOT),    // 0x5705
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -173,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FUNCTION] = LAYOUT_universal(
         _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, _______, TD(TD_LPRIN), TD(TD_RPRIN), _______, _______, _______,
         _______, KC_F5, LT(_MISC, KC_F6), XXXXXXX, KC_F7, KC_F8, _______, S_ARW, D_ARW, _______, _______, _______,
-        _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, _______, _______, _______, _______, _______, _______,
+        _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, _______, TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_FUNCTION), _______, TG(_FUNCTION)),
 
     [_MOUSE] = LAYOUT_universal(
