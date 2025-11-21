@@ -128,12 +128,15 @@ void dance_rprin(tap_dance_state_t *state, void *user_data)
     register_code(KC_LSFT);
     tap_code(KC_9);
     unregister_code(KC_LSFT);
+    break;
   case 2:
     tap_code(JP_RBRC);
+    break;
   case 3:
     register_code(KC_LSFT);
     tap_code(JP_RBRC);
     unregister_code(KC_LSFT);
+    break;
   default:
     tap_code(JP_RBRC);
   }
