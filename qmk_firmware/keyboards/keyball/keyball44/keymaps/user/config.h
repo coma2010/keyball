@@ -50,3 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYER_STATE_8BIT
 #define COMBO_ONLY_FROM_LAYER 0
 #define SPLIT_USB_TIMEOUT 1000
+
+#define TAPPING_TERM 175
+#define TAPPING_TERM_PER_KEY
