@@ -92,10 +92,52 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record)
 enum
 {
   TD_Q_ESC,
+  TD_LPRIN,
+  TD_RPRIN,
 };
+
+void dance_lprin(tap_dance_state_t *state, void *user_date)
+{
+  switch (state->count)
+  {
+  case 1:
+    register_code(KC_LSFT);
+    tap_code(KC_8);
+    unregister_code(KC_LSFT);
+  case 2:
+    tap_code(JP_LBRC);
+  case 3:
+    register_code(KC_LSFT);
+    tap_code(JP_LBRC);
+    unregister_code(KC_LSFT);
+  default:
+    tap_code(JP_LBRC);
+  }
+}
+
+void dance_rprin(tap_dance_state_t *state, void *user_date)
+{
+  switch (state->count)
+  {
+  case 1:
+    register_code(KC_LSFT);
+    tap_code(KC_9);
+    unregister_code(KC_LSFT);
+  case 2:
+    tap_code(JP_RBRC);
+  case 3:
+    register_code(KC_LSFT);
+    tap_code(JP_RBRC);
+    unregister_code(KC_LSFT);
+  default:
+    tap_code(JP_RBRC);
+  }
+}
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
+    [TD_LPRIN] = ACTION_TAP_DANCE_FN(dance_lprin),
+    [TD_RPRIN] = ACTION_TAP_DANCE_FN(dance_rprin),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
