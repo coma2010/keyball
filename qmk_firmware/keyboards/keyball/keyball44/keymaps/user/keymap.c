@@ -86,8 +86,7 @@ enum layer_number
 
 enum custom_keycodes
 {
-  MO6_USCR = SAFE_RANGE,
-  S_ARW,
+  S_ARW = SAFE_RANGE,
   D_ARW
 };
 
@@ -95,14 +94,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // keymap for default (VIA)
     [_DEFAULT] = LAYOUT_universal(
         KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
-        LSFT_T(KC_TAB), LSFT_T(KC_A), KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(6, KC_ENT),
-        LCTL_T(KC_LCAP), LCTL_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, RCTL_T(KC_SLSH), KC_INT1,
+        LSFT_T(KC_TAB), LSFT_T(KC_A), LT(6, KC_S), LT(3, KC_D), LT(2, KC_F), KC_G, KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(6, KC_ENT),
+        LCTL_T(KC_CAPS), LCTL_T(KC_Z), KC_X, KC_C, LT(5, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, RCTL_T(KC_SLSH), S(KC_INT1),
         KC_LALT, KC_LGUI, LCTL_T(KC_TAB), KC_LNG8, LT(5, KC_ESC), LSFT_T(KC_BSPC), LT(1, KC_SPC), TG(5), KC_RCTL, KC_RALT),
 
     [_NUMBER] = LAYOUT_universal(
-        _______, S(KC_1), KC_LBRC, S(KC_3), S(KC_4), S(KC_5), KC_EQL, S(KC_6), S(KC_8), KC_MINS, S(KC_MINS), _______,
-        _______, LSFT_T(KC_1), KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, RSFT_T(KC_0), _______,
-        _______, LCTL_T(KC_RBRC), KC_BSLS, S(KC_RBRC), S(KC_BSLS), S(KC_SCLN), S(KC_EQL), _______, _______, _______, _______, _______,
+        _______, S(KC_1), KC_LBRC, S(KC_3), S(KC_4), S(KC_5), KC_EQL, S(KC_6), S(JP_COLN), KC_MINS, S(KC_MINS), _______,
+        _______, LSFT_T(KC_1), LT(6, KC_2), LT(3, KC_3), LT(2, KC_4), KC_5, KC_6, KC_7, KC_8, KC_9, RSFT_T(KC_0), _______,
+        _______, LCTL_T(JP_LBRC), JP_RBRC, S(JP_LBRC), S(JP_RBRC), JP_COLN, S(JP_CIRC), S(JP_SCLN), _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, _______),
 
     [_BRACKET] = LAYOUT_universal(
