@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_TIMEOUT 60000
 #define TAP_CODE_DELAY 5
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 7
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6
 
 #define KEYBALL_CPI_DEFAULT 1000
 // #define KEYBALL_SCROLL_DEV_DEFAULT 5
@@ -50,5 +50,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define COMBO_ONLY_FROM_LAYER 0
 #define SPLIT_USB_TIMEOUT 1000
 
-#define TAPPING_TERM 175
+#define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
