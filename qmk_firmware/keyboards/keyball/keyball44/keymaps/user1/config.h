@@ -37,7 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAP_CODE_DELAY 5
 
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
-#define AUTO_MOUSE_DEFAULT_LAYER 4
+#define AUTO_MOUSE_DEFAULT_LAYER 5
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
 
 #define KEYBALL_CPI_DEFAULT 1000
@@ -49,3 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_MUSIC_MODE
 #define LAYER_STATE_8BIT
 #define COMBO_ONLY_FROM_LAYER 0
+#define SPLIT_USB_TIMEOUT 1000
+
+#define TAPPING_TERM 175
+#define TAPPING_TERM_PER_KEY

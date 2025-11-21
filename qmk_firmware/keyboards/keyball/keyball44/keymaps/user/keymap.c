@@ -90,40 +90,6 @@ enum custom_keycodes
   D_ARW
 };
 
-// Tap Dance declarations
-enum
-{
-  TD_Q_ESC,
-};
-
-void dance_q_finished(tap_dance_state_t *state, void *user_data)
-{
-  if (state->count == 1)
-  {
-    register_code16(KC_Q);
-  }
-  else
-  {
-    register_code(KC_ESCAPE);
-  }
-}
-
-void dance_q_reset(tap_dance_state_t *state, void *user_data)
-{
-  if (state->count == 1)
-  {
-    unregister_code16(KC_Q);
-  }
-  else
-  {
-    unregister_code(KC_ESCAPE);
-  }
-}
-
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_Q_ESC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_q_finished, dance_q_reset),
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // keymap for default (VIA)
     [_DEFAULT] = LAYOUT_universal(
@@ -139,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, TG(_NUMBER)),
 
     [_BRACKET] = LAYOUT_universal(
-        _______, TD(TD_Q_ESC), D_ARW, S_ARW, XXXXXXX, XXXXXXX, S(JP_YEN), S(KC_8), S(KC_9), S(KC_2), S(KC_7), _______,
+        _______, _______, D_ARW, S_ARW, XXXXXXX, XXXXXXX, S(JP_YEN), S(KC_8), S(KC_9), S(KC_2), S(KC_7), _______,
         _______, KC_DEL, LT(6, KC_PGUP), LT(3, KC_HOME), XXXXXXX, XXXXXXX, S(JP_BSLS), S(JP_LBRC), S(JP_RBRC), JP_SCLN, JP_COLN, _______,
         _______, KC_BSPC, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, JP_LBRC, JP_RBRC, S(JP_AT), _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, TG(_BRACKET)),
