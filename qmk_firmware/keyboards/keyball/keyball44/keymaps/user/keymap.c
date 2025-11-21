@@ -94,6 +94,8 @@ enum
   TD_Q_ESC,
   TD_LPRIN,
   TD_RPRIN,
+  TD_LBRC,
+  TD_RBRC
 };
 
 void dance_lprin(tap_dance_state_t *state, void *user_data)
