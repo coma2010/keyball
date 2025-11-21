@@ -96,10 +96,33 @@ enum
   TD_Q_ESC,
 }
 
-// Tap Dance definitions
+void
+dance_q_finished(tap_dance_state_t *state, void *user_data)
+{
+  if (state->count == 1)
+  {
+    register_code16(KC_Q);
+  }
+  else
+  {
+    register_code(KC_ESCAPE);
+  }
+}
+
+void dance_q_reset(tap_dance_state_t *state, void *user_data)
+{
+  if (state->count == 1)
+  {
+    unregister_code16(KC_Q);
+  }
+  else
+  {
+    unregister_code(KC_ESCAPE);
+  }
+}
+
 tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Escape, twice for Caps Lock
-    [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
+    [TD_Q_ESC] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_q_finished, dance_q_reset),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
