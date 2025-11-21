@@ -168,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MOUSE] = LAYOUT_universal(
         _______, _______, KC_HOME, KC_UP, KC_PGUP, KC_DEL, TO(_DEFAULT), TG(_FUNCTION), _______, _______, _______, _______,
-        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, TG(_NUMBER), _______, KC_BTN1, KC_BTN2, SCRN_MO, _______,
+        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, TG(_NUMBER), _______, KC_BTN1, KC_BTN2, SCRL_MO, _______,
         _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, _______, TG(_BRACKET), TG(_MISC), KC_BTN3, KC_BTN4, KC_BTN5, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
 
