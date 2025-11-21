@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BRACKET] = LAYOUT_universal(
         _______, XXXXXXX, D_ARW, S_ARW, XXXXXXX, XXXXXXX, S(KC_8), S(KC_9), S(KC_2), S(KC_7), S(JP_AT), _______,
-        _______, KC_DEL, LT(6, KC_PGUP), LT(3, KC_HOME), XXXXXXX, XXXXXXX, S(JP_BSLS), S(JP_LBRC), S(JP_RBRC) JP_SCLN, JP_COLN, _______,
+        _______, KC_DEL, LT(6, KC_PGUP), LT(3, KC_HOME), XXXXXXX, XXXXXXX, S(JP_BSLS), S(JP_LBRC), S(JP_RBRC), JP_SCLN, JP_COLN, _______,
         _______, KC_BSPC, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, JP_LBRC, JP_RBRC, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, _______),
 
@@ -124,9 +124,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, TG(_CURSOR), _______, _______),
 
     [_MOUSE] = LAYOUT_universal(
-        _______, _______, KC_HOME, KC_UP, KC_PGUP, KC_DEL, TO(0), TG(3), MS_LEFT, MS_RIGHT, _______, _______,
-        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, TG(1), TG(4), MS_BTN1, MS_BTN2, _______, _______,
-        _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, _______, TG(2), TG(6), MS_BTN3, MS_BTN4, MS_BTN5, _______,
+        _______, _______, KC_HOME, KC_UP, KC_PGUP, KC_DEL, TO(0), TG(3), _______, _______, _______, _______,
+        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, TG(1), TG(4), _______, _______, _______, _______,
+        _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, _______, TG(2), TG(6), _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, _______),
 
     [_MISC] = LAYOUT_universal(
