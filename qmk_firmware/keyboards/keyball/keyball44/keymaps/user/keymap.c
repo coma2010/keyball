@@ -71,8 +71,8 @@ enum layer_number
 
 enum custom_keycodes
 {
-  S_ARW = SAFE_RANGE,
-  D_ARW
+  S_ARW = SAFE_RANGE, // User 0: ->
+  D_ARW               // User 1: =>
 };
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record)
@@ -96,7 +96,7 @@ enum
   TD_RPRIN,
 };
 
-void dance_lprin(tap_dance_state_t *state, void *user_date)
+void dance_lprin(tap_dance_state_t *state, void *user_data)
 {
   switch (state->count)
   {
@@ -118,7 +118,7 @@ void dance_lprin(tap_dance_state_t *state, void *user_date)
   }
 }
 
-void dance_rprin(tap_dance_state_t *state, void *user_date)
+void dance_rprin(tap_dance_state_t *state, void *user_data)
 {
   switch (state->count)
   {
@@ -138,9 +138,11 @@ void dance_rprin(tap_dance_state_t *state, void *user_date)
 }
 
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
-    [TD_LPRIN] = ACTION_TAP_DANCE_FN(dance_lprin),
-    [TD_RPRIN] = ACTION_TAP_DANCE_FN(dance_rprin),
+    [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),       // 0x5700
+    [TD_LPRIN] = ACTION_TAP_DANCE_FN(dance_lprin),            // 0x5701
+    [TD_RPRIN] = ACTION_TAP_DANCE_FN(dance_rprin),            // 0x5702
+    [TD_LBRC] = ACTION_TAP_DANCE_DOUBLE(JP_LBRC, S(JP_LBRC)), // 0x5703
+    [TD_RBRC] = ACTION_TAP_DANCE_DOUBLE(JP_RBRC, S(JP_RBRC)), // 0x5704
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -159,8 +161,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BRACKET] = LAYOUT_universal(
         _______, TD(TD_Q_ESC), D_ARW, S_ARW, XXXXXXX, XXXXXXX, S(JP_YEN), S(KC_8), S(KC_9), S(KC_2), S(KC_7), _______,
-        _______, KC_DEL, LT(_MISC, KC_PGUP), LT(_FUNCTION, KC_HOME), XXXXXXX, XXXXXXX, S(JP_BSLS), S(JP_LBRC), S(JP_RBRC), JP_SCLN, JP_COLN, _______,
-        _______, KC_BSPC, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, JP_LBRC, JP_RBRC, S(JP_AT), _______, _______,
+        _______, KC_DEL, LT(_MISC, KC_PGUP), LT(_FUNCTION, KC_HOME), XXXXXXX, XXXXXXX, S(JP_BSLS), TD(TD_LBRC), TD(TD_RBRC), JP_SCLN, JP_COLN, _______,
+        _______, KC_BSPC, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, S(JP_LBRC), S(JP_RBRC), S(JP_AT), _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, TG(_BRACKET)),
 
     [_FUNCTION] = LAYOUT_universal(
@@ -261,7 +263,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case D_ARW:
     if (record->event.pressed)
     {
-      SEND_STRING("=>");
+      SEND_STRING("_>");
     }
     break;
   default:
