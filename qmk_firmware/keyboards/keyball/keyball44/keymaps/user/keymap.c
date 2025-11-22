@@ -50,14 +50,14 @@ combo_t key_combos[] = {
 // # define OVR_TGL KEY_OVERRIDE_TOGGLE
 // #include "key_override.h"
 
-// Shift + Backspace -> Delete
-const key_override_t delete_on_shift_backspace = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+// // Shift + Backspace -> Delete
+// const key_override_t delete_on_shift_backspace = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 
-// 必須: オーバーライド配列を定義 (終端は NULL)
-const key_override_t **key_overrides = (const key_override_t *[]){
-    &delete_on_shift_backspace,
-    NULL,
-};
+// // 必須: オーバーライド配列を定義 (終端は NULL)
+// const key_override_t **key_overrides = (const key_override_t *[]){
+//     &delete_on_shift_backspace,
+//     NULL,
+// };
 
 enum layer_number
 {
@@ -167,27 +167,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, TG(_NUMBER)),
 
     [_BRACKET] = LAYOUT_universal(
-        _______, TD(TD_Q_ESC), D_ARW, S_ARW, XXXXXXX, XXXXXXX, S(JP_YEN), S(KC_8), S(KC_9), S(KC_2), S(KC_7), _______,
+        _______, TD(TD_Q_ESC), D_ARW, S_ARW, XXXXXXX, XXXXXXX, S(JP_YEN), S(KC_8), S(KC_9), S(JP_AT), XXXXXXX, KC_DEL,
         _______, KC_DEL, LT(_MISC, KC_PGUP), LT(_FUNCTION, KC_HOME), XXXXXXX, XXXXXXX, S(JP_BSLS), TD(TD_LBRC), TD(TD_RBRC), JP_SCLN, JP_COLN, _______,
-        _______, KC_BSPC, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, S(JP_LBRC), S(JP_RBRC), S(JP_AT), _______, _______,
+        _______, KC_BSPC, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, TD(TD_QUOT), _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, TG(_BRACKET)),
 
     [_FUNCTION] = LAYOUT_universal(
-        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, _______, TD(TD_LPRIN), TD(TD_RPRIN), _______, _______, _______,
-        _______, KC_F5, LT(_MISC, KC_F6), XXXXXXX, KC_F7, KC_F8, _______, S_ARW, D_ARW, _______, _______, _______,
-        _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, _______, TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), _______, _______,
+        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, XXXXXXX, TD(TD_LPRIN), TD(TD_RPRIN), XXXXXXX, XXXXXXX, KC_BSPC,
+        _______, KC_F5, LT(_MISC, KC_F6), XXXXXXX, KC_F7, KC_F8, XXXXXXX, S_ARW, D_ARW, XXXXXXX, XXXXXXX, _______,
+        _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, XXXXXXX, TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), XXXXXXX, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_FUNCTION), _______, TG(_FUNCTION)),
 
     [_MOUSE] = LAYOUT_universal(
-        _______, _______, KC_HOME, KC_UP, KC_PGUP, KC_DEL, TO(_DEFAULT), TG(_FUNCTION), _______, _______, _______, _______,
-        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, TG(_NUMBER), _______, KC_BTN1, KC_BTN2, SCRL_MO, _______,
+        _______, XXXXXXX, KC_HOME, KC_UP, KC_PGUP, KC_DEL, TO(_DEFAULT), TG(_FUNCTION), XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, TG(_NUMBER), XXXXXXX, KC_BTN1, KC_BTN2, SCRL_MO, _______,
         _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, _______, TG(_BRACKET), TG(_MISC), KC_BTN3, KC_BTN4, KC_BTN5, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
 
     [_MISC] = LAYOUT_universal(
-        _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), _______, _______, _______, _______, _______,
-        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, _______, SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, _______, _______,
-        _______, _______, _______, CPI_D1K, CPI_D100, _______, _______, SCRL_DVD, SSNP_HOR, KBC_SAVE, _______, _______,
+        _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, XXXXXXX, SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, XXXXXXX, _______,
+        _______, XXXXXXX, XXXXXXX, CPI_D1K, CPI_D100, XXXXXXX, XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, XXXXXXX, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, TG(_MISC)),
 };
 // clang-format on
