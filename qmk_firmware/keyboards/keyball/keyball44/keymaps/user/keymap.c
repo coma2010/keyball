@@ -185,8 +185,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
 
     [_MISC] = LAYOUT_universal(
-        _______, _______, _______, _______, _______, _______, _______, _______, SSNP_FRE, _______, _______, _______,
-        _______, _______, _______, CPI_I1K, CPI_I100, _______, _______, SCRL_DVI, SSNP_VRT, KBC_RST, _______, _______,
+        _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), _______, _______, _______, _______, _______,
+        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, _______, SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, _______, _______,
         _______, _______, _______, CPI_D1K, CPI_D100, _______, _______, SCRL_DVD, SSNP_HOR, KBC_SAVE, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, TG(_MISC)),
 };
