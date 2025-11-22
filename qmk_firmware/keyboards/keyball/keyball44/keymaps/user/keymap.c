@@ -135,7 +135,7 @@ void dance_rprin(tap_dance_state_t *state, void *user_data)
     tap_code(JP_RBRC);
     break;
   case 3:
-    register_code(KC_LSFT);
+    register_code(KC_LSFT
     tap_code(JP_RBRC);
     unregister_code(KC_LSFT);
     break;
@@ -165,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUMBER] = LAYOUT_universal(
         _______, S(KC_1), KC_LBRC, S(KC_3), S(KC_4), S(KC_5), KC_EQL, S(KC_6), S(JP_COLN), KC_MINS, S(KC_MINS), _______,
         _______, LSFT_T(KC_1), LT(_MOUSE, KC_2), LT(_FUNCTION, KC_3), LT(_BRACKET, KC_4), KC_5, KC_6, KC_7, KC_8, KC_9, RSFT_T(KC_0), _______,
-        _______, LCTL_T(JP_LBRC), JP_RBRC, S(JP_LBRC), S(JP_RBRC), JP_COLN, S(JP_CIRC), S(JP_SCLN), _______, _______, _______, _______,
+        _______, LCTL_T(JP_LBRC), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), JP_COLN, S(JP_CIRC), S(JP_SCLN), _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, TG(_NUMBER)),
 
     [_BRACKET] = LAYOUT_universal(
