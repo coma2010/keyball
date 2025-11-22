@@ -318,7 +318,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       {
         if (timer_elapsed(usr_timer) > TAPPING_TERM)
         {
-          unregister_code(KC_RCTL);
+          register_code(KC_RCTL);
           ctl_uscr_pressed = false;
         }
       }
