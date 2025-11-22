@@ -96,7 +96,8 @@ enum
   TD_RPRIN,
   TD_LBRC,
   TD_RBRC,
-  TD_QUOT
+  TD_QUOT,
+  TD_W_TAB
 };
 
 void dance_lprin(tap_dance_state_t *state, void *user_data)
@@ -150,15 +151,16 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_LBRC] = ACTION_TAP_DANCE_DOUBLE(JP_LBRC, S(JP_LBRC)), // 0x5703
     [TD_RBRC] = ACTION_TAP_DANCE_DOUBLE(JP_RBRC, S(JP_RBRC)), // 0x5704
     [TD_QUOT] = ACTION_TAP_DANCE_DOUBLE(JP_DQUO, JP_QUOT),    // 0x5705
+    [TD_W_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_W, KC_TAB),       // 0x5706
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // keymap for default (VIA)
     [_DEFAULT] = LAYOUT_universal(
-        KC_ESC, TD(TD_Q_ESC), KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
+        KC_ESC, TD(TD_Q_ESC), TD(TD_W_TAB), KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
         LSFT_T(KC_TAB), LSFT_T(KC_A), LT(_MISC, KC_S), LT(_FUNCTION, KC_D), LT(_BRACKET, KC_F), KC_G, KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
         LCTL_T(KC_CAPS), LCTL_T(KC_Z), KC_X, KC_C, LT(_MOUSE, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, RCTL_T(KC_SLSH), S(KC_INT1),
-        KC_LALT, KC_LGUI, LCTL_T(KC_TAB), KC_LNG8, LT(_MOUSE, KC_ESC), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_RCTL, TG(_MOUSE)),
+        KC_LALT, KC_LGUI, LCTL_T(KC_TAB), KC_LNG8, LT(_NUMBER, KC_ESC), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_RCTL, TG(_MOUSE)),
 
     [_NUMBER] = LAYOUT_universal(
         _______, S(KC_1), KC_LBRC, S(KC_3), S(KC_4), S(KC_5), KC_EQL, S(KC_6), S(JP_COLN), KC_MINS, S(KC_MINS), _______,
@@ -167,13 +169,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, TG(_NUMBER)),
 
     [_BRACKET] = LAYOUT_universal(
-        _______, TD(TD_Q_ESC), D_ARW, S_ARW, XXXXXXX, XXXXXXX, S(JP_YEN), S(KC_8), S(KC_9), S(JP_AT), XXXXXXX, KC_DEL,
-        _______, KC_DEL, LT(_MISC, KC_PGUP), LT(_FUNCTION, KC_HOME), XXXXXXX, XXXXXXX, S(JP_BSLS), TD(TD_LBRC), TD(TD_RBRC), JP_SCLN, JP_COLN, _______,
-        _______, KC_BSPC, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, TD(TD_QUOT), _______, _______, _______, _______,
+        _______, KC_ESC, D_ARW, S_ARW, XXXXXXX, XXXXXXX, S(JP_YEN), S(KC_8), S(KC_9), KC_DEL, KC_BSPC, _______,
+        _______, KC_TAB, LT(_MISC, KC_PGUP), LT(_FUNCTION, KC_HOME), XXXXXXX, XXXXXXX, S(JP_BSLS), TD(TD_LBRC), TD(TD_RBRC), JP_SCLN, JP_COLN, _______,
+        _______, KC_INS, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, TD(TD_QUOT), S(JP_AT), _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, TG(_BRACKET)),
 
     [_FUNCTION] = LAYOUT_universal(
-        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, XXXXXXX, TD(TD_LPRIN), TD(TD_RPRIN), XXXXXXX, XXXXXXX, KC_BSPC,
+        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, XXXXXXX, TD(TD_LPRIN), TD(TD_RPRIN), XXXXXXX, XXXXXXX, _______,
         _______, KC_F5, LT(_MISC, KC_F6), XXXXXXX, KC_F7, KC_F8, XXXXXXX, S_ARW, D_ARW, XXXXXXX, XXXXXXX, _______,
         _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, XXXXXXX, TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), XXXXXXX, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_FUNCTION), _______, TG(_FUNCTION)),
@@ -185,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
 
     [_MISC] = LAYOUT_universal(
-        _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), TD(TD_W_TAB), XXXXXXX, XXXXXXX, XXXXXXX, _______,
         _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, XXXXXXX, SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, XXXXXXX, _______,
         _______, XXXXXXX, XXXXXXX, CPI_D1K, CPI_D100, XXXXXXX, XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, XXXXXXX, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, TG(_MISC)),
