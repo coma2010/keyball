@@ -72,7 +72,8 @@ enum layer_number
 enum custom_keycodes
 {
   S_ARW = SAFE_RANGE, // User 0: ->
-  D_ARW               // User 1: =>
+  D_ARW,              // User 1: =>
+  CTL_USCR,
 };
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record)
@@ -160,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC, TD(TD_Q_ESC), TD(TD_W_TAB), KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
         LSFT_T(KC_TAB), LSFT_T(KC_A), LT(_MISC, KC_S), LT(_FUNCTION, KC_D), LT(_BRACKET, KC_F), KC_G, KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
         LCTL_T(KC_CAPS), LCTL_T(KC_Z), KC_X, KC_C, LT(_MOUSE, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, RCTL_T(KC_SLSH), S(KC_INT1),
-        KC_LALT, KC_LGUI, LCTL_T(KC_TAB), KC_LNG8, LT(_NUMBER, KC_ESC), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_RCTL, TG(_MOUSE)),
+        KC_LALT, KC_LGUI, CTL_USCR, KC_LNG8, LT(_NUMBER, KC_TAB), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_RCTL, TG(_MOUSE)),
 
     [_NUMBER] = LAYOUT_universal(
         _______, S(KC_1), KC_LBRC, S(KC_3), S(KC_4), S(KC_5), KC_EQL, S(KC_6), S(JP_COLN), KC_MINS, S(KC_MINS), _______,
@@ -201,8 +202,9 @@ layer_state_t layer_state_set_user(layer_state_t state)
   return state;
 }
 
-static uint16_t lng8_timer = 0; // Tracks tap vs hold window for KC_LNG8.
+static uint16_t usr_timer = 0; // Tracks tap vs hold window for KC_LNG8.
 static bool lng8_pressed = false;
+static bool ctl_uscr_pressed = false;
 
 enum key_state
 {
@@ -218,12 +220,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case KC_LNG8:
     if (record->event.pressed)
     {
-      lng8_timer = timer_read();
+      usr_timer = timer_read();
       lng8_pressed = true;
     }
     else
     {
-      if (timer_elapsed(lng8_timer) <= TAPPING_TERM)
+      if (timer_elapsed(usr_timer) <= TAPPING_TERM)
       {
         // tap_code(KC_GRV);
         lng8_pressed = false;
@@ -233,6 +235,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       {
         tap_code16(C(KC_M)); // ctrl+mを送る
         tap_code(KC_GRV);
+        lng8_pressed = false;
         // tap_code(KC_LNG2);
         // tap_code(KC_LNG1); // 確実に英数にする
       }
@@ -242,12 +245,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case KC_LNG9:
     if (record->event.pressed)
     {
-      lng8_timer = timer_read();
+      usr_timer = timer_read();
       lng8_pressed = true;
     }
     else
     {
-      if (timer_elapsed(lng8_timer) <= TAPPING_TERM)
+      if (timer_elapsed(usr_timer) <= TAPPING_TERM)
       {
         // tap_code(KC_GRV);
         lng8_pressed = false;
@@ -259,6 +262,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         tap_code(KC_GRV);
         // tap_code(KC_LNG2);
         // tap_code(KC_LNG1); // 確実に英数にする
+        lng8_pressed = false;
+      }
+    }
+    return false;
+    break;
+  case CTL_USCR:
+    if (record->event.pressed)
+    {
+      usr_timer = timer_read();
+      ctl_uscr_pressed = true;
+    }
+    else
+    {
+      if (timer_elapsed(usr_timer) <= TAPPING_TERM)
+      {
+        register_code(KC_LSFT);
+        tap_code(KC_INT1);
+        unregister_code(KC_LSFT);
+        ctl_uscr_pressed = false;
+      }
+      else
+      {
+        unregister_code(KC_RCTL);
+        ctl_uscr_pressed = false;
       }
     }
     return false;
@@ -280,11 +307,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     {
       if (lng8_pressed)
       {
-        if (timer_elapsed(lng8_timer) > TAPPING_TERM)
+        if (timer_elapsed(usr_timer) > TAPPING_TERM)
         {
           /* code */
           tap_code(KC_GRV);
           lng8_pressed = false;
+        }
+      }
+      if (ctl_uscr_pressed)
+      {
+        if (timer_elapsed(usr_timer) > TAPPING_TERM)
+        {
+          unregister_code(KC_RCTL);
+          ctl_uscr_pressed = false;
         }
       }
     }
