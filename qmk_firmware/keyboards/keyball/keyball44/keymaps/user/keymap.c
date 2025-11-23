@@ -160,8 +160,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT] = LAYOUT_universal(
         KC_ESC, TD(TD_Q_ESC), TD(TD_W_TAB), KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
         LSFT_T(KC_TAB), LSFT_T(KC_A), LT(_MISC, KC_S), LT(_FUNCTION, KC_D), LT(_BRACKET, KC_F), KC_G, KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
-        LCTL_T(KC_CAPS), LCTL_T(KC_Z), KC_X, KC_C, LT(_MOUSE, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, RCTL_T(KC_SLSH), S(KC_INT1),
-        KC_LALT, KC_LGUI, CTL_USCR, KC_LNG8, LT(_NUMBER, KC_TAB), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_RCTL, TG(_MOUSE)),
+        LCTL_T(KC_CAPS), LCTL_T(KC_Z), KC_X, KC_C, LT(_MOUSE, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
+        KC_LALT, KC_LGUI, CTL_USCR, KC_LNG8, LT(_NUMBER, KC_TAB), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
 
     [_NUMBER] = LAYOUT_universal(
         _______, S(KC_1), KC_LBRC, S(KC_3), S(KC_4), S(KC_5), KC_EQL, S(KC_6), S(JP_COLN), KC_MINS, S(KC_MINS), _______,
@@ -277,6 +277,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     {
       if (timer_elapsed(usr_timer) <= TAPPING_TERM)
       {
+        unregister_code(KC_RCTL);
         register_code(KC_LSFT);
         tap_code(KC_INT1);
         unregister_code(KC_LSFT);
@@ -303,29 +304,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
     break;
   default:
-    if (record->event.pressed)
-    {
-      if (lng8_pressed)
-      {
-        if (timer_elapsed(usr_timer) > TAPPING_TERM)
-        {
-          /* code */
-          tap_code(KC_GRV);
-          lng8_pressed = false;
-        }
-      }
-      if (ctl_uscr_pressed)
-      {
-        if (timer_elapsed(usr_timer) > TAPPING_TERM)
-        {
-          register_code(KC_RCTL);
-          ctl_uscr_pressed = false;
-        }
-      }
-    }
     break;
   }
   return true;
+}
+
+void matrix_scan_user(void)
+{
+  if (lng8_pressed && timer_elapsed(usr_timer) > TAPPING_TERM)
+  {
+    /* code */
+    tap_code(KC_GRV);
+    lng8_pressed = false;
+  }
+  if (ctl_uscr_pressed && timer_elapsed(usr_timer) > TAPPING_TERM)
+  {
+    register_code(KC_RCTL);
+    ctl_uscr_pressed = false;
+  }
 }
 
 #ifdef OLED_ENABLE
