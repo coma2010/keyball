@@ -25,15 +25,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // combo setting
 // #ifdef COMBO_ENABLE
-const uint16_t PROGMEM my_up[] = {KC_Y, KC_U, COMBO_END};
-const uint16_t PROGMEM my_down[] = {KC_N, KC_M, COMBO_END};
+const uint16_t PROGMEM my_up[] = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM my_down[] = {KC_M, KC_COMM, COMBO_END};
 const uint16_t PROGMEM my_left[] = {KC_H, KC_J, COMBO_END};
 const uint16_t PROGMEM my_right[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM my_btn1[] = {KC_K, KC_L, COMBO_END};
 const uint16_t PROGMEM my_btn2[] = {KC_L, RSFT_T(KC_MINS), COMBO_END};
 const uint16_t PROGMEM my_scrl_mo[] = {KC_COMM, KC_DOT, COMBO_END};
-const uint16_t PROGMEM my_esc[] = {KC_U, KC_I, COMBO_END};
-const uint16_t PROGMEM my_tab[] = {KC_M, KC_COMM, COMBO_END};
+const uint16_t PROGMEM my_esc[] = {KC_Y, KC_U, COMBO_END};
+const uint16_t PROGMEM my_tab[] = {KC_N, KC_M, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(my_up, KC_UP),
@@ -170,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, TG(_NUMBER)),
 
     [_BRACKET] = LAYOUT_universal(
-        _______, KC_ESC, D_ARW, S_ARW, XXXXXXX, XXXXXXX, S(JP_YEN), S(KC_8), S(KC_9), KC_DEL, KC_BSPC, _______,
+        _______, KC_ESC, D_ARW, S_ARW, XXXXXXX, XXXXXXX, S(JP_YEN), S(KC_8), S(KC_9), KC_INS, KC_DEL, _______,
         _______, KC_TAB, LT(_MISC, KC_PGUP), LT(_FUNCTION, KC_HOME), XXXXXXX, XXXXXXX, S(JP_BSLS), TD(TD_LBRC), TD(TD_RBRC), JP_SCLN, JP_COLN, _______,
         _______, KC_INS, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, TD(TD_QUOT), S(JP_AT), _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, TG(_BRACKET)),
@@ -182,15 +182,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, TG(_FUNCTION), _______, TG(_FUNCTION)),
 
     [_MOUSE] = LAYOUT_universal(
-        _______, XXXXXXX, KC_HOME, KC_UP, KC_PGUP, KC_DEL, TO(_DEFAULT), TG(_FUNCTION), XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS, TG(_NUMBER), XXXXXXX, KC_BTN1, KC_BTN2, SCRL_MO, _______,
-        _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, _______, TG(_BRACKET), TG(_MISC), KC_BTN3, KC_BTN4, KC_BTN5, _______,
+        _______, XXXXXXX, KC_HOME, KC_UP, KC_PGUP, KC_BTN4, TO(_DEFAULT), TG(_FUNCTION), XXXXXXX, KC_INS, KC_DEL, _______,
+        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_BTN2, TG(_NUMBER), XXXXXXX, KC_BTN1, KC_BTN2, SCRL_MO, _______,
+        _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, KC_BTN1, TG(_BRACKET), TG(_MISC), KC_BTN3, KC_BTN4, KC_BTN5, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
 
     [_MISC] = LAYOUT_universal(
         _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), TD(TD_W_TAB), XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, XXXXXXX, SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, XXXXXXX, _______,
-        _______, XXXXXXX, XXXXXXX, CPI_D1K, CPI_D100, XXXXXXX, XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, XXXXXXX, _______,
+        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, XXXXXXX, SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, KC_LANG1, _______,
+        _______, XXXXXXX, XXXXXXX, CPI_D1K, CPI_D100, XXXXXXX, XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, KC_LANG2, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, TG(_MISC)),
 };
 // clang-format on
