@@ -189,8 +189,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MISC] = LAYOUT_universal(
         _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), TD(TD_W_TAB), XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, XXXXXXX, SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, KC_LANG1, _______,
-        _______, XXXXXXX, XXXXXXX, CPI_D1K, CPI_D100, XXXXXXX, XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, KC_LANG2, _______,
+        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, XXXXXXX, SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, KC_LNG1, _______,
+        _______, XXXXXXX, XXXXXXX, CPI_D1K, CPI_D100, XXXXXXX, XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, KC_LNG2, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, TG(_MISC)),
 };
 // clang-format on
