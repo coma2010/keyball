@@ -92,6 +92,16 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record)
 // Tap Dance declarations
 enum
 {
+  TD_1,
+  TD_2,
+  TD_3,
+  TD_4,
+  TD_5,
+  TD_6,
+  TD_7,
+  TD_8,
+  TD_9,
+  TD_0,
   TD_Q_ESC,
   TD_LPRIN,
   TD_RPRIN,
@@ -146,6 +156,16 @@ void dance_rprin(tap_dance_state_t *state, void *user_data)
 }
 
 tap_dance_action_t tap_dance_actions[] = {
+    [TD_1] = ACTION_TAP_DANCE_DOUBLE(KC_1, JP_EXLM),
+    [TD_2] = ACTION_TAP_DANCE_DOUBLE(KC_2, JP_AT),
+    [TD_3] = ACTION_TAP_DANCE_DOUBLE(KC_3, JP_HASH),
+    [TD_4] = ACTION_TAP_DANCE_DOUBLE(KC_4, JP_DLR),
+    [TD_5] = ACTION_TAP_DANCE_DOUBLE(KC_5, JP_PERC),
+    [TD_6] = ACTION_TAP_DANCE_DOUBLE(KC_6, JP_CIRC),
+    [TD_7] = ACTION_TAP_DANCE_DOUBLE(KC_7, JP_AMPR),
+    [TD_8] = ACTION_TAP_DANCE_DOUBLE(KC_8, JP_ASTR),
+    [TD_9] = ACTION_TAP_DANCE_DOUBLE(KC_9, JP_LPRN),
+    [TD_0] = ACTION_TAP_DANCE_DOUBLE(KC_0, JP_RPRN),
     [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),       // 0x5700
     [TD_LPRIN] = ACTION_TAP_DANCE_FN(dance_lprin),            // 0x5701
     [TD_RPRIN] = ACTION_TAP_DANCE_FN(dance_rprin),            // 0x5702
@@ -164,9 +184,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LALT, KC_LGUI, CTL_USCR, KC_LNG8, LT(_NUMBER, KC_TAB), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
 
     [_NUMBER] = LAYOUT_universal(
-        _______, S(KC_1), KC_LBRC, S(KC_3), S(KC_4), S(KC_5), KC_EQL, S(KC_6), S(JP_COLN), JP_SCLN, JP_COLN, _______,
-        _______, LSFT_T(KC_1), LT(_MOUSE, KC_2), LT(_FUNCTION, KC_3), LT(_BRACKET, KC_4), KC_5, KC_6, KC_7, KC_8, KC_9, RSFT_T(KC_0), _______,
-        _______, LCTL_T(JP_LBRC), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), KC_MINS, S(JP_CIRC), S(JP_SCLN), _______, _______, _______, _______,
+        // _______, S(KC_1), KC_LBRC, S(KC_3), S(KC_4), S(KC_5), KC_EQL, S(KC_6), S(JP_COLN), JP_SCLN, JP_COLN, _______,
+        // _______, LSFT_T(KC_1), LT(_MOUSE, KC_2), LT(_FUNCTION, KC_3), LT(_BRACKET, KC_4), KC_5, KC_6, KC_7, KC_8, KC_9, RSFT_T(KC_0), _______,
+        // _______, LCTL_T(JP_LBRC), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), KC_MINS, S(JP_CIRC), S(JP_SCLN), _______, _______, _______, _______,
+        _______, TD(TD_1), TD(TD_2), TD(TD_3), TD(TD_4), TD(TD_5), TD(TD_6), TD(TD_7), TD(TD_8), TD(TD_9), TD(TD_0), _______,
+        _______, LSFT_T(KC_1), LT(_MOUSE, KC_2), LT(_FUNCTION, KC_PGDN), LT(_BRACKET, KC_PGUP), S(JP_CIRC), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), JP_SCLN, RSFT_T(JP_COLN), _______,
+        _______, LCTL_T(JP_LBRC), XXXXXXX, S(JP_AT), S(JP_BSLS), S(JP_YEN), KC_MINS, S(JP_SCLN), _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, TG(_NUMBER)),
 
     [_BRACKET] = LAYOUT_universal(
