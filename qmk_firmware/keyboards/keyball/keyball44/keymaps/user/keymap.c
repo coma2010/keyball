@@ -89,6 +89,27 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record)
   }
 }
 
+/////////////////////////
+// Tap Dance
+typedef enum
+{
+  TD_NONE,
+  TD_UNKNOWN,
+  TD_SINGLE_TAP,
+  TD_SINGLE_HOLD,
+  TD_DOUBLE_TAP,
+  TD_DOUBLE_HOLD,
+  TD_DOUBLE_SINGLE_TAP, // Send two single taps
+  TD_TRIPLE_TAP,
+  TD_TRIPLE_HOLD
+} td_state_t;
+
+typedef struct
+{
+  bool is_press_action;
+  td_state_t state;
+} td_tap_t;
+
 // Tap Dance declarations
 enum
 {
@@ -108,52 +129,273 @@ enum
   TD_LBRC,
   TD_RBRC,
   TD_QUOT,
-  TD_W_TAB
+  TD_W_TAB,
+  X_CTL,
+  SOME_OTHER_DANCE
 };
 
-void dance_lprin(tap_dance_state_t *state, void *user_data)
+td_state_t cur_dance(tap_dance_state_t *state);
+
+// For the x tap dance. Put it here so it can be used in any keymap
+void x_finished(tap_dance_state_t *state, void *user_data);
+void x_reset(tap_dance_state_t *state, void *user_data);
+
+/* Return an integer that corresponds to what kind of tap dance should be executed.
+ *
+ * How to figure out tap dance state: interrupted and pressed.
+ *
+ * Interrupted: If the state of a dance is "interrupted", that means that another key has been hit
+ *  under the tapping term. This is typically indicative that you are trying to "tap" the key.
+ *
+ * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
+ *  has ended, but the key is still being pressed down. This generally means the key is being "held".
+ *
+ * One thing that is currently not possible with qmk software in regards to tap dance is to mimic the "permissive hold"
+ *  feature. In general, advanced tap dances do not work well if they are used with commonly typed letters.
+ *  For example "A". Tap dances are best used on non-letter keys that are not hit while typing letters.
+ *
+ * Good places to put an advanced tap dance:
+ *  z,q,x,j,k,v,b, any function key, home/end, comma, semi-colon
+ *
+ * Criteria for "good placement" of a tap dance key:
+ *  Not a key that is hit frequently in a sentence
+ *  Not a key that is used frequently to double tap, for example 'tab' is often double tapped in a terminal, or
+ *    in a web form. So 'tab' would be a poor choice for a tap dance.
+ *  Letters used in common words as a double. For example 'p' in 'pepper'. If a tap dance function existed on the
+ *    letter 'p', the word 'pepper' would be quite frustrating to type.
+ *
+ * For the third point, there does exist the 'TD_DOUBLE_SINGLE_TAP', however this is not fully tested
+ *
+ */
+td_state_t cur_dance(tap_dance_state_t *state)
 {
-  switch (state->count)
+  if (state->count == 1)
   {
-  case 1:
-    register_code(KC_LSFT);
-    tap_code(KC_8);
-    unregister_code(KC_LSFT);
+    if (state->interrupted || !state->pressed)
+      return TD_SINGLE_TAP;
+    // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
+    else
+      return TD_SINGLE_HOLD;
+  }
+  else if (state->count == 2)
+  {
+    // TD_DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
+    // action when hitting 'pp'. Suggested use case for this return value is when you want to send two
+    // keystrokes of the key, and not the 'double tap' action/macro.
+    if (state->interrupted)
+      return TD_DOUBLE_SINGLE_TAP;
+    else if (state->pressed)
+      return TD_DOUBLE_HOLD;
+    else
+      return TD_DOUBLE_TAP;
+  }
+
+  // Assumes no one is trying to type the same letter three times (at least not quickly).
+  // If your tap dance key is 'KC_W', and you want to type "www." quickly - then you will need to add
+  // an exception here to return a 'TD_TRIPLE_SINGLE_TAP', and define that enum just like 'TD_DOUBLE_SINGLE_TAP'
+  if (state->count == 3)
+  {
+    if (state->interrupted || !state->pressed)
+      return TD_TRIPLE_TAP;
+    else
+      return TD_TRIPLE_HOLD;
+  }
+  else
+    return TD_UNKNOWN;
+}
+
+// Create an instance of 'td_tap_t' for the 'x' tap dance.
+static td_tap_t xtap_state = {
+    .is_press_action = true,
+    .state = TD_NONE};
+static td_tap_t lprintap_state = {
+    .is_press_action = true,
+    .state = TD_NONE};
+static td_tap_t rprintap_state = {
+    .is_press_action = true,
+    .state = TD_NONE};
+
+void x_finished(tap_dance_state_t *state, void *user_data)
+{
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state)
+  {
+  case TD_SINGLE_TAP:
+    register_code(KC_X);
     break;
-  case 2:
-    tap_code(JP_LBRC);
+  case TD_SINGLE_HOLD:
+    register_code(KC_LCTL);
     break;
-  case 3:
-    register_code(KC_LSFT);
-    tap_code(JP_LBRC);
-    unregister_code(KC_LSFT);
+  case TD_DOUBLE_TAP:
+    register_code(KC_ESC);
+    break;
+  case TD_DOUBLE_HOLD:
+    register_code(KC_LALT);
+    break;
+  // Last case is for fast typing. Assuming your key is `f`:
+  // For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
+  // In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
+  case TD_DOUBLE_SINGLE_TAP:
+    tap_code(KC_X);
+    register_code(KC_X);
     break;
   default:
-    tap_code(JP_LBRC);
+    break;
   }
 }
 
-void dance_rprin(tap_dance_state_t *state, void *user_data)
+void x_reset(tap_dance_state_t *state, void *user_data)
 {
-  switch (state->count)
+  switch (xtap_state.state)
   {
-  case 1:
-    register_code(KC_LSFT);
-    tap_code(KC_9);
-    unregister_code(KC_LSFT);
+  case TD_SINGLE_TAP:
+    unregister_code(KC_X);
     break;
-  case 2:
-    tap_code(JP_RBRC);
+  case TD_SINGLE_HOLD:
+    unregister_code(KC_LCTL);
     break;
-  case 3:
-    register_code(KC_LSFT);
-    tap_code(JP_RBRC);
-    unregister_code(KC_LSFT);
+  case TD_DOUBLE_TAP:
+    unregister_code(KC_ESC);
+    break;
+  case TD_DOUBLE_HOLD:
+    unregister_code(KC_LALT);
+    break;
+  case TD_DOUBLE_SINGLE_TAP:
+    unregister_code(KC_X);
     break;
   default:
-    tap_code(JP_RBRC);
+    break;
+  }
+  xtap_state.state = TD_NONE;
+}
+
+void lprin_finished(tap_dance_state_t *state, void *user_data)
+{
+  lprin_state.state = cur_dance(state);
+  switch (lprin_state.state)
+  {
+  case TD_SINGLE_TAP:
+    register_code(KC_RSFT);
+    register_code(KC_8);
+    break;
+  case TD_DOUBLE_TAP:
+    register_code(JP_LBRC);
+    break;
+  case TD_TRIPLE_TAP:
+    register_code(KC_RSFT);
+    register_code(JP_LBRC);
+    break;
+  default:
+    break;
   }
 }
+
+void lprin_reset(tap_dance_state_t *state, void *user_data)
+{
+  switch (lprin_state.state)
+  {
+  case TD_SINGLE_TAP:
+    unregister_code(KC_8);
+    unregister_code(KC_RSFT);
+    break;
+  case TD_DOUBLE_TAP:
+    unregister_code(JP_LBRC);
+    break;
+  case TD_TRIPLE_TAP:
+    unregister_code(KC_LBRC);
+    unregister_code(JP_RSFT);
+    break;
+  default:
+    break;
+  }
+  lprin_state.state = TD_NONE;
+}
+
+void rprin_finished(tap_dance_state_t *state, void *user_data)
+{
+  rprin_state.state = cur_dance(state);
+  switch (rprin_state.state)
+  {
+  case TD_SINGLE_TAP:
+    register_code(KC_RSFT);
+    register_code(KC_9);
+    break;
+  case TD_DOUBLE_TAP:
+    register_code(JP_RBRC);
+    break;
+  case TD_TRIPLE_TAP:
+    register_code(KC_RSFT);
+    register_code(JP_RBRC);
+    break;
+  default:
+    break;
+  }
+}
+
+void rprin_reset(tap_dance_state_t *state, void *user_data)
+{
+  switch (rprin_state.state)
+  {
+  case TD_SINGLE_TAP:
+    unregister_code(KC_9);
+    unregister_code(KC_RSFT);
+    break;
+  case TD_DOUBLE_TAP:
+    unregister_code(JP_RBRC);
+    break;
+  case TD_TRIPLE_TAP:
+    unregister_code(KC_RBRC);
+    unregister_code(JP_RSFT);
+    break;
+  default:
+    break;
+  }
+  rprin_state.state = TD_NONE;
+}
+
+// void dance_lprin(tap_dance_state_t *state, void *user_data)
+// {
+//   switch (state->count)
+//   {
+//   case 1:
+//     register_code(KC_LSFT);
+//     tap_code(KC_8);
+//     unregister_code(KC_LSFT);
+//     break;
+//   case 2:
+//     tap_code(JP_LBRC);
+//     break;
+//   case 3:
+//     register_code(KC_LSFT);
+//     tap_code(JP_LBRC);
+//     unregister_code(KC_LSFT);
+//     break;
+//   default:
+//     tap_code(JP_LBRC);
+//   }
+// }
+
+// void dance_rprin(tap_dance_state_t *state, void *user_data)
+// {
+//   switch (state->count)
+//   {
+//   case 1:
+//     register_code(KC_LSFT);
+//     tap_code(KC_9);
+//     unregister_code(KC_LSFT);
+//     break;
+//   case 2:
+//     tap_code(JP_RBRC);
+//     break;
+//   case 3:
+//     register_code(KC_LSFT);
+//     tap_code(JP_RBRC);
+//     unregister_code(KC_LSFT);
+//     break;
+//   default:
+//     tap_code(JP_RBRC);
+//   }
+// }
 
 tap_dance_action_t tap_dance_actions[] = {
     [TD_1] = ACTION_TAP_DANCE_DOUBLE(KC_1, JP_EXLM),
@@ -164,16 +406,18 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_6] = ACTION_TAP_DANCE_DOUBLE(KC_6, JP_CIRC),
     [TD_7] = ACTION_TAP_DANCE_DOUBLE(KC_7, JP_AMPR),
     [TD_8] = ACTION_TAP_DANCE_DOUBLE(KC_8, JP_ASTR),
-    [TD_9] = ACTION_TAP_DANCE_DOUBLE(KC_9, JP_LPRN),
-    [TD_0] = ACTION_TAP_DANCE_DOUBLE(KC_0, JP_RPRN),
-    [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),       // 0x5700
-    [TD_LPRIN] = ACTION_TAP_DANCE_FN(dance_lprin),            // 0x5701
-    [TD_RPRIN] = ACTION_TAP_DANCE_FN(dance_rprin),            // 0x5702
-    [TD_LBRC] = ACTION_TAP_DANCE_DOUBLE(JP_LBRC, S(JP_LBRC)), // 0x5703
-    [TD_RBRC] = ACTION_TAP_DANCE_DOUBLE(JP_RBRC, S(JP_RBRC)), // 0x5704
-    [TD_QUOT] = ACTION_TAP_DANCE_DOUBLE(JP_DQUO, JP_QUOT),    // 0x5705
-    [TD_W_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_W, KC_TAB),       // 0x5706
-};
+    [TD_9] = ACTION_TAP_DANCE_DOUBLE(KC_9, JP_SCLN),
+    [TD_0] = ACTION_TAP_DANCE_DOUBLE(KC_0, JP_COLN),
+    [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
+    [TD_LPRIN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lprin_finished, lprin_reset),
+    [TD_RPRIN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rprin_finished, rprin_reset),
+    // [TD_LPRIN] = ACTION_TAP_DANCE_FN(dance_lprin),
+    // [TD_RPRIN] = ACTION_TAP_DANCE_FN(dance_rprin),
+    [TD_LBRC] = ACTION_TAP_DANCE_DOUBLE(JP_LBRC, S(JP_LBRC)),
+    [TD_RBRC] = ACTION_TAP_DANCE_DOUBLE(JP_RBRC, S(JP_RBRC)),
+    [TD_QUOT] = ACTION_TAP_DANCE_DOUBLE(JP_DQUO, JP_QUOT),
+    [TD_W_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_W, KC_TAB),
+    [X_CTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset)};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // keymap for default (VIA)
@@ -187,8 +431,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // _______, S(KC_1), KC_LBRC, S(KC_3), S(KC_4), S(KC_5), KC_EQL, S(KC_6), S(JP_COLN), JP_SCLN, JP_COLN, _______,
         // _______, LSFT_T(KC_1), LT(_MOUSE, KC_2), LT(_FUNCTION, KC_3), LT(_BRACKET, KC_4), KC_5, KC_6, KC_7, KC_8, KC_9, RSFT_T(KC_0), _______,
         // _______, LCTL_T(JP_LBRC), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), KC_MINS, S(JP_CIRC), S(JP_SCLN), _______, _______, _______, _______,
+        _______, XXXXXXX, XXXXXXX, LT(_FUNCTION, KC_PGDN), LT(_BRACKET, KC_PGUP), S(JP_CIRC), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), S(KC_8), S(KC_9), _______,
         _______, TD(TD_1), TD(TD_2), TD(TD_3), TD(TD_4), TD(TD_5), TD(TD_6), TD(TD_7), TD(TD_8), TD(TD_9), TD(TD_0), _______,
-        _______, LSFT_T(KC_1), LT(_MOUSE, KC_2), LT(_FUNCTION, KC_PGDN), LT(_BRACKET, KC_PGUP), S(JP_CIRC), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), JP_SCLN, RSFT_T(JP_COLN), _______,
         _______, LCTL_T(JP_LBRC), XXXXXXX, S(JP_AT), S(JP_BSLS), S(JP_YEN), KC_MINS, S(JP_SCLN), _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, TG(_NUMBER)),
 
