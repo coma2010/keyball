@@ -1,3 +1,4 @@
+# Workflow: Build firmware on demand in qmk_cli container; pip unlock uses PIP_BREAK_SYSTEM_PACKAGES because Debian base is PEP 668 managed.
 name: Build a firmware
 
 on:
@@ -37,6 +38,8 @@ jobs:
       run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
 
     - name: Install missing python module
+      env:
+        PIP_BREAK_SYSTEM_PACKAGES: "1"  # Allow pip installs inside Debian-managed python
       run: /usr/bin/python3 -m pip install -r __qmk__/requirements.txt
 
     - name: Compile and link
