@@ -214,6 +214,9 @@ static td_tap_t lprintap_state = {
 static td_tap_t rprintap_state = {
     .is_press_action = true,
     .state = TD_NONE};
+static td_tap_t zerotap_state = {
+    .is_press_action = true,
+    .state = TD_NONE};
 
 void x_finished(tap_dance_state_t *state, void *user_data)
 {
@@ -275,13 +278,16 @@ void lprin_finished(tap_dance_state_t *state, void *user_data)
   switch (lprintap_state.state)
   {
   case TD_SINGLE_TAP:
+  case TD_SINGLE_HOLD:
     register_code(KC_RSFT);
     register_code(KC_8);
     break;
   case TD_DOUBLE_TAP:
+  case TD_DOUBLE_HOLD:
     register_code(JP_LBRC);
     break;
   case TD_TRIPLE_TAP:
+  case TD_TRIPLE_HOLD:
     register_code(KC_RSFT);
     register_code(JP_LBRC);
     break;
@@ -295,13 +301,16 @@ void lprin_reset(tap_dance_state_t *state, void *user_data)
   switch (lprintap_state.state)
   {
   case TD_SINGLE_TAP:
+  case TD_SINGLE_HOLD:
     unregister_code(KC_8);
     unregister_code(KC_RSFT);
     break;
   case TD_DOUBLE_TAP:
+  case TD_DOUBLE_HOLD:
     unregister_code(JP_LBRC);
     break;
   case TD_TRIPLE_TAP:
+  case TD_TRIPLE_HOLD:
     unregister_code(JP_LBRC);
     unregister_code(KC_RSFT);
     break;
@@ -317,13 +326,16 @@ void rprin_finished(tap_dance_state_t *state, void *user_data)
   switch (rprintap_state.state)
   {
   case TD_SINGLE_TAP:
+  case TD_SINGLE_HOLD:
     register_code(KC_RSFT);
     register_code(KC_9);
     break;
   case TD_DOUBLE_TAP:
+  case TD_DOUBLE_HOLD:
     register_code(JP_RBRC);
     break;
   case TD_TRIPLE_TAP:
+  case TD_TRIPLE_HOLD:
     register_code(KC_RSFT);
     register_code(JP_RBRC);
     break;
@@ -337,15 +349,60 @@ void rprin_reset(tap_dance_state_t *state, void *user_data)
   switch (rprintap_state.state)
   {
   case TD_SINGLE_TAP:
+  case TD_SINGLE_HOLD:
     unregister_code(KC_9);
     unregister_code(KC_RSFT);
     break;
   case TD_DOUBLE_TAP:
+  case TD_DOUBLE_HOLD:
     unregister_code(JP_RBRC);
     break;
   case TD_TRIPLE_TAP:
+  case TD_TRIPLE_HOLD:
     unregister_code(JP_RBRC);
     unregister_code(KC_RSFT);
+    break;
+  default:
+    break;
+  }
+  rprintap_state.state = TD_NONE;
+}
+
+void zero_finished(tap_dance_state_t *state, void *user_data)
+{
+  rprintap_state.state = cur_dance(state);
+  switch (rprintap_state.state)
+  {
+  case TD_SINGLE_TAP:
+  case TD_DOUBLE_HOLD:
+    register_code(KC_0);
+    break;
+  case TD_SINGLE_HOLD:
+    register_code(KC_LSFT);
+    break;
+  case TD_DOUBLE_TAP:
+  case TD_TRIPLE_HOLD:
+    register_code(JP_COLN);
+    break;
+  default:
+    break;
+  }
+}
+
+void zero_reset(tap_dance_state_t *state, void *user_data)
+{
+  switch (rprintap_state.state)
+  {
+  case TD_SINGLE_TAP:
+  case TD_DOUBLE_HOLD:
+    unregister_code(KC_0);
+    break;
+  case TD_SINGLE_HOLD:
+    unregister_code(KC_LSFT);
+    break;
+  case TD_DOUBLE_TAP:
+  case TD_TRIPLE_HOLD:
+    unregister_code(JP_COLN);
     break;
   default:
     break;
@@ -408,6 +465,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_8] = ACTION_TAP_DANCE_DOUBLE(KC_8, JP_ASTR),
     [TD_9] = ACTION_TAP_DANCE_DOUBLE(KC_9, JP_SCLN),
     [TD_0] = ACTION_TAP_DANCE_DOUBLE(KC_0, JP_COLN),
+    [TD_0-] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, zero_finished, zero_reset),
     [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
     [TD_LPRIN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lprin_finished, lprin_reset),
     [TD_RPRIN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, rprin_finished, rprin_reset),
@@ -431,15 +489,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // _______, S(KC_1), KC_LBRC, S(KC_3), S(KC_4), S(KC_5), KC_EQL, S(KC_6), S(JP_COLN), JP_SCLN, JP_COLN, _______,
         // _______, LSFT_T(KC_1), LT(_MOUSE, KC_2), LT(_FUNCTION, KC_3), LT(_BRACKET, KC_4), KC_5, KC_6, KC_7, KC_8, KC_9, RSFT_T(KC_0), _______,
         // _______, LCTL_T(JP_LBRC), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), KC_MINS, S(JP_CIRC), S(JP_SCLN), _______, _______, _______, _______,
-        _______, XXXXXXX, XXXXXXX, LT(_FUNCTION, KC_PGDN), LT(_BRACKET, KC_PGUP), S(JP_CIRC), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), S(KC_8), S(KC_9), _______,
-        _______, TD(TD_1), TD(TD_2), TD(TD_3), TD(TD_4), TD(TD_5), TD(TD_6), TD(TD_7), TD(TD_8), TD(TD_9), TD(TD_0), _______,
-        _______, LCTL_T(JP_LBRC), XXXXXXX, S(JP_AT), S(JP_BSLS), S(JP_YEN), KC_MINS, S(JP_SCLN), _______, _______, _______, _______,
+        _______, S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), S(KC_8), S(KC_9), _______,
+        _______, LSFT_T(KC_1), LT(_MISC, KC_2), LT(_FUNCTION, KC_3), LT(_BRACKET, KC_4), TD(TD_5), TD(TD_6), TD(TD_7), TD(TD_8), TD(TD_9), TD(TD_0-), _______,
+        _______, LCTL_T(JP_LBRC), XXXXXXX, S(JP_CIRC), S(JP_BSLS), S(JP_YEN), S(JP_SCLN), KC_MINS, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, TG(_NUMBER)),
 
     [_BRACKET] = LAYOUT_universal(
         _______, KC_ESC, D_ARW, S_ARW, XXXXXXX, XXXXXXX, S(JP_YEN), S(KC_8), S(KC_9), KC_INS, KC_DEL, _______,
         _______, KC_TAB, LT(_MISC, KC_PGUP), LT(_FUNCTION, KC_HOME), XXXXXXX, XXXXXXX, S(JP_BSLS), TD(TD_LBRC), TD(TD_RBRC), JP_SCLN, JP_COLN, _______,
-        _______, KC_INS, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, TD(TD_QUOT), S(JP_AT), _______, _______, _______,
+        _______, KC_INS, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, TD(TD_QUOT), _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, TG(_BRACKET)),
 
     [_FUNCTION] = LAYOUT_universal(
