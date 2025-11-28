@@ -51,7 +51,7 @@ jobs:
 
     - name: Patch qmk math for Python 3.14 ast
       run: |
-        python - <<'PY'
+        python3 - <<'PY'
         from pathlib import Path
         import ast
 
