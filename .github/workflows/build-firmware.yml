@@ -38,10 +38,11 @@ jobs:
     - name: Install a link to own source
       run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
 
-    - name: Install missing python module
-      env:
-        PIP_BREAK_SYSTEM_PACKAGES: "1"  # Allow pip installs inside Debian-managed python (uv tool env is managed)
-      run: /opt/uv/tools/qmk/bin/python3 -m pip install -r __qmk__/requirements.txt
+    - name: Setup venv and install python modules
+      run: |
+        python3 -m venv .venv
+        .venv/bin/python -m pip install --upgrade pip
+        .venv/bin/python -m pip install -r __qmk__/requirements.txt
 
     - name: Patch qmk math for Python 3.14 ast
       run: |
@@ -64,6 +65,8 @@ jobs:
         PY
 
     - name: Compile and link
+      env:
+        QMK_PYTHON: .venv/bin/python
       run: qmk compile -j 4 -kb keyball/${{ inputs.keyboard }} -km ${{ inputs.keymap }}
 
     - name: Archive built firmware
