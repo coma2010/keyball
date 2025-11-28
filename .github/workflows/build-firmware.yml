@@ -23,7 +23,7 @@ jobs:
 
     runs-on: ubuntu-22.04
     container:
-      image: ghcr.io/qmk/qmk_cli:0.22.14
+      image: ghcr.io/qmk/qmk_cli:latest
 
     steps:
 
@@ -36,8 +36,8 @@ jobs:
     - name: Install a link to own source
       run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
 
-    - name: Install missing python modules
-      run: /opt/uv/tools/qmk/bin/python3 -m pip install -r __qmk__/requirements.txt
+    - name: Install missing python module
+      run: /usr/bin/python3 -m pip install -r __qmk__/requirements.txt
 
     - name: Compile and link
       run: qmk compile -j 4 -kb keyball/${{ inputs.keyboard }} -km ${{ inputs.keymap }}
