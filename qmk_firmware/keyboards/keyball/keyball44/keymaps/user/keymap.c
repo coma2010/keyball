@@ -271,8 +271,8 @@ void x_reset(tap_dance_state_t *state, void *user_data)
 
 void lprin_finished(tap_dance_state_t *state, void *user_data)
 {
-  lprin_state.state = cur_dance(state);
-  switch (lprin_state.state)
+  lprintap_state.state = cur_dance(state);
+  switch (lprintap_state.state)
   {
   case TD_SINGLE_TAP:
     register_code(KC_RSFT);
@@ -292,7 +292,7 @@ void lprin_finished(tap_dance_state_t *state, void *user_data)
 
 void lprin_reset(tap_dance_state_t *state, void *user_data)
 {
-  switch (lprin_state.state)
+  switch (lprintap_state.state)
   {
   case TD_SINGLE_TAP:
     unregister_code(KC_8);
@@ -302,19 +302,19 @@ void lprin_reset(tap_dance_state_t *state, void *user_data)
     unregister_code(JP_LBRC);
     break;
   case TD_TRIPLE_TAP:
-    unregister_code(KC_LBRC);
-    unregister_code(JP_RSFT);
+    unregister_code(JP_LBRC);
+    unregister_code(KC_RSFT);
     break;
   default:
     break;
   }
-  lprin_state.state = TD_NONE;
+  lprintap_state.state = TD_NONE;
 }
 
 void rprin_finished(tap_dance_state_t *state, void *user_data)
 {
-  rprin_state.state = cur_dance(state);
-  switch (rprin_state.state)
+  rprintap_state.state = cur_dance(state);
+  switch (rprintap_state.state)
   {
   case TD_SINGLE_TAP:
     register_code(KC_RSFT);
@@ -334,7 +334,7 @@ void rprin_finished(tap_dance_state_t *state, void *user_data)
 
 void rprin_reset(tap_dance_state_t *state, void *user_data)
 {
-  switch (rprin_state.state)
+  switch (rprintap_state.state)
   {
   case TD_SINGLE_TAP:
     unregister_code(KC_9);
@@ -344,13 +344,13 @@ void rprin_reset(tap_dance_state_t *state, void *user_data)
     unregister_code(JP_RBRC);
     break;
   case TD_TRIPLE_TAP:
-    unregister_code(KC_RBRC);
-    unregister_code(JP_RSFT);
+    unregister_code(JP_RBRC);
+    unregister_code(KC_RSFT);
     break;
   default:
     break;
   }
-  rprin_state.state = TD_NONE;
+  rprintap_state.state = TD_NONE;
 }
 
 // void dance_lprin(tap_dance_state_t *state, void *user_data)
