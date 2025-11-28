@@ -38,6 +38,11 @@ jobs:
     - name: Install a link to own source
       run: ln -s $(pwd)/qmk_firmware/keyboards/keyball __qmk__/keyboards/keyball
 
+    - name: Install python venv tools
+      run: |
+        apt-get update -y
+        apt-get install -y python3-venv python3-pip
+
     - name: Setup venv and install python modules
       run: |
         python3 -m venv .venv
