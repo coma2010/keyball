@@ -24,7 +24,8 @@ jobs:
 
     runs-on: ubuntu-22.04
     container:
-      image: ghcr.io/qmk/qmk_cli:latest
+      # Pinned to digest that previously succeeded (log showed sha256:2dc05f...). Avoids newer Python 3.14 image regression.
+      image: ghcr.io/qmk/qmk_cli@sha256:2dc05fc9f32efebd6b05c2b8676ee548358bc7e151e9dbf4dac6b6eed4513b07
 
     steps:
 
@@ -46,10 +47,19 @@ jobs:
       run: |
         python - <<'PY'
         from pathlib import Path
+        import ast
+
         path = Path('__qmk__/lib/python/qmk/math.py')
         text = path.read_text()
-        if 'ast.Constant' not in text:
-            text = text.replace('ast.Num', '(ast.Constant, ast.Num)')
+
+        # Idempotent: only patch once.
+        if 'NUM_NODE_TYPES' not in text:
+            text = text.replace(
+                'def _eval(node):',
+                'NUM_NODE_TYPES = tuple(t for t in (getattr(ast, "Constant", None), getattr(ast, "Num", None)) if t)\n\n'
+                'def _eval(node):'
+            )
+            text = text.replace('if isinstance(node, (ast.Constant, ast.Num))', 'if isinstance(node, NUM_NODE_TYPES)')
             path.write_text(text)
         PY
 
