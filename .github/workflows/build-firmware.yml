@@ -42,6 +42,17 @@ jobs:
         PIP_BREAK_SYSTEM_PACKAGES: "1"  # Allow pip installs inside Debian-managed python (uv tool env is managed)
       run: /opt/uv/tools/qmk/bin/python3 -m pip install -r __qmk__/requirements.txt
 
+    - name: Patch qmk math for Python 3.14 ast
+      run: |
+        python - <<'PY'
+        from pathlib import Path
+        path = Path('__qmk__/lib/python/qmk/math.py')
+        text = path.read_text()
+        if 'ast.Constant' not in text:
+            text = text.replace('ast.Num', '(ast.Constant, ast.Num)')
+            path.write_text(text)
+        PY
+
     - name: Compile and link
       run: qmk compile -j 4 -kb keyball/${{ inputs.keyboard }} -km ${{ inputs.keymap }}
 
