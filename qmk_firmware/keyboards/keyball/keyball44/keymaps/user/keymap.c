@@ -370,8 +370,8 @@ void rprin_reset(tap_dance_state_t *state, void *user_data)
 
 void zero_finished(tap_dance_state_t *state, void *user_data)
 {
-  rprintap_state.state = cur_dance(state);
-  switch (rprintap_state.state)
+  zerotap_state.state = cur_dance(state);
+  switch (zerotap_state.state)
   {
   case TD_SINGLE_TAP:
   case TD_DOUBLE_HOLD:
@@ -391,7 +391,7 @@ void zero_finished(tap_dance_state_t *state, void *user_data)
 
 void zero_reset(tap_dance_state_t *state, void *user_data)
 {
-  switch (rprintap_state.state)
+  switch (zerotap_state.state)
   {
   case TD_SINGLE_TAP:
   case TD_DOUBLE_HOLD:
@@ -407,7 +407,7 @@ void zero_reset(tap_dance_state_t *state, void *user_data)
   default:
     break;
   }
-  rprintap_state.state = TD_NONE;
+  zerotap_state.state = TD_NONE;
 }
 
 // void dance_lprin(tap_dance_state_t *state, void *user_data)
