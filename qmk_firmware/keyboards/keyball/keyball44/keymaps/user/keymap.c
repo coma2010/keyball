@@ -509,15 +509,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, TG(_FUNCTION), _______, TG(_FUNCTION)),
 
     [_MOUSE] = LAYOUT_universal(
-        _______, XXXXXXX, KC_HOME, KC_UP, KC_PGUP, KC_BTN4, TO(_DEFAULT), TG(_FUNCTION), XXXXXXX, KC_INS, KC_DEL, _______,
-        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_BTN2, TG(_NUMBER), XXXXXXX, KC_BTN1, KC_BTN2, KC_BTN3, _______,
-        _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, KC_BTN1, TG(_BRACKET), TG(_MISC), SCRL_MO, KC_BTN4, KC_BTN5, _______,
+        _______, XXXXXXX, KC_HOME, KC_UP, KC_PGUP, XXXXXXX, KC_PGUP, KC_UP, KC_INS, KC_DEL, KC_BSPC, _______,
+        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, KC_LEFT, KC_RIGHT, KC_BTN1, KC_BTN2, KC_BTN3, _______,
+        _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, XXXXXXX, KC_PGDN, KC_DOWN, SCRL_MO, KC_BTN4, KC_BTN5, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
 
     [_MISC] = LAYOUT_universal(
-        _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), TD(TD_W_TAB), XXXXXXX, XXXXXXX, XXXXXXX, _______,
-        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, XXXXXXX, SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, KC_LNG1, _______,
-        _______, XXXXXXX, XXXXXXX, CPI_D1K, CPI_D100, XXXXXXX, XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, KC_LNG2, _______,
+        _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_FUNCTION), TO(_MOUSE), _______,
+        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, TD(TD_QUOT), SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, KC_LNG1, _______,
+        _______, XXXXXXX, XXXXXXX, CPI_D1K, CPI_D100, TD(TD_W_TAB), XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, KC_LNG2, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, TG(_MISC)),
 };
 // clang-format on
