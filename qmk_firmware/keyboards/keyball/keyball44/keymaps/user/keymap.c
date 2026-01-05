@@ -499,7 +499,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BRACKET] = LAYOUT_universal(
         _______, KC_ESC, KC_TAB, S_ARW, D_ARW, XXXXXXX, JP_YEN, TD(TD_QUOT), KC_INS, KC_DEL, KC_BSPC, _______,
         _______, LSFT_T(KC_CAPS), LT(_MISC, KC_PGUP), LT(_FUNCTION, KC_HOME), XXXXXXX, XXXXXXX, S(JP_CIRC), S(KC_8), S(KC_9), JP_SCLN, JP_COLN, _______,
-        _______, LCTL_T(KC_LNG1), KC_PGDN, KC_END, XXXXXXX, XXXXXXX, JP_BSLS, TD(TD_LBRC) TD(TD_RBRC), _______, KC_ENT, _______,
+        _______, LCTL_T(KC_LNG1), KC_PGDN, KC_END, XXXXXXX, XXXXXXX, JP_BSLS, TD(TD_LBRC), TD(TD_RBRC), _______, KC_ENT, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, TG(_BRACKET)),
 
     [_FUNCTION] = LAYOUT_universal(
@@ -511,7 +511,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MOUSE] = LAYOUT_universal(
         _______, XXXXXXX, KC_HOME, KC_UP, KC_PGUP, KC_BTN4, TO(_DEFAULT), TG(_FUNCTION), XXXXXXX, KC_INS, KC_DEL, _______,
         _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, KC_BTN2, TG(_NUMBER), XXXXXXX, KC_BTN1, KC_BTN2, KC_BTN3, _______,
-        _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, KC_BTN1, TG(_BRACKET), TG(_MISC), SCL_MO, KC_BTN4, KC_BTN5, _______,
+        _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, KC_BTN1, TG(_BRACKET), TG(_MISC), SCRL_MO, KC_BTN4, KC_BTN5, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
 
     [_MISC] = LAYOUT_universal(
