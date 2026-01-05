@@ -482,10 +482,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // keymap for default (VIA)
     [_DEFAULT] = LAYOUT_universal(
         KC_ESC, TD(TD_Q_ESC), TD(TD_W_TAB), KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
-        LSFT_T(KC_CAPS), LSFT_T(KC_A), LT(_MISC, KC_S), LT(_FUNCTION, KC_D), LT(_BRACKET, KC_F), KC_G, KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
-        LCTL_T(KC_LNG1), LCTL_T(KC_Z), KC_X, KC_C, LT(_MOUSE, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
+        LSFT_T(KC_CAPS), LSFT_T(KC_A), KC_S, LT(_FUNCTION, KC_D), LT(_BRACKET, KC_F), KC_G, KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
+        LCTL_T(KC_LNG1), LCTL_T(KC_Z), KC_X, LT(_MISC, KC_C), LT(_MOUSE, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
         // KC_LALT, KC_LGUI, CTL_USCR, KC_LNG8, LT(_NUMBER, KC_TAB), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
-        S(JP_BSLS), KC_LALT, CTL_USCR, KC_LNG8, LGUI_T(KC_TAB), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
+        S(JP_BSLS), KC_LALT, CTL_USCR, KC_LNG8, LGUI_T(KC_TAB), LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
 
     [_NUMBER] = LAYOUT_universal(
         // _______, S(KC_1), KC_LBRC, S(KC_3), S(KC_4), S(KC_5), KC_EQL, S(KC_6), S(JP_COLN), JP_SCLN, JP_COLN, _______,
@@ -497,14 +497,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, TG(_NUMBER)),
 
     [_BRACKET] = LAYOUT_universal(
-        _______, KC_ESC, KC_TAB, S_ARW, D_ARW, XXXXXXX, TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), KC_INS, KC_DEL, _______,
-        _______, XXXXXXX, LT(_MISC, KC_PGUP), LT(_FUNCTION, KC_HOME), XXXXXXX, XXXXXXX, S(JP_YEN), S(KC_8), S(KC_9), JP_SCLN, JP_COLN, _______,
-        _______, XXXXXXX, KC_PGDN, KC_END, XXXXXXX, XXXXXXX, XXXXXXX, S(JP_BSLS), _______, _______, _______, _______,
+        _______, KC_ESC, KC_TAB, S_ARW, D_ARW, XXXXXXX, JP_YEN, TD(TD_QUOT), KC_INS, KC_DEL, KC_BSPC, _______,
+        _______, LSFT_T(KC_CAPS), LT(_MISC, KC_PGUP), LT(_FUNCTION, KC_HOME), XXXXXXX, XXXXXXX, S(JP_CIRC), S(KC_8), S(KC_9), JP_SCLN, JP_COLN, _______,
+        _______, LCTL_T(KC_LNG1), KC_PGDN, KC_END, XXXXXXX, XXXXXXX, JP_BSLS, TD(TD_LBRC) TD(TD_RBRC), _______, KC_ENT, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, TG(_BRACKET)),
 
     [_FUNCTION] = LAYOUT_universal(
-        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, XXXXXXX, TD(TD_LPRIN), TD(TD_RPRIN), KC_INS, KC_DEL, _______,
-        _______, KC_F5, LT(_MISC, KC_F6), XXXXXXX, KC_F7, KC_F8, XXXXXXX, S_ARW, D_ARW, XXXXXXX, XXXXXXX, _______,
+        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, XXXXXXX, TD(TD_LPRIN), KC_INS, KC_DEL, KC_BSPC, _______,
+        _______, KC_F5, LT(_MISC, KC_F6), XXXXXXX, KC_F7, KC_F8, XXXXXXX, S_ARW, D_ARW, TD(TD_LPRIN), TD(TD_RPRIN), _______,
         _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, XXXXXXX, TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), XXXXXXX, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_FUNCTION), _______, TG(_FUNCTION)),
 
