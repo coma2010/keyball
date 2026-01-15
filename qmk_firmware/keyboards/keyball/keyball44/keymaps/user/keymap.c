@@ -688,21 +688,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   return true;
 }
 
-void matrix_scan_user(void)
-{
-  // キー押下中の長押し判定を、一定時間経過で確定させる。
-  if (lng8_pressed && timer_elapsed(usr_timer) > TAPPING_TERM)
-  {
-    /* 将来拡張用の空き枠 */
-    tap_code(KC_GRV);
-    lng8_pressed = false;
-  }
-  if (ctl_uscr_pressed && timer_elapsed(usr_timer) > TAPPING_TERM)
-  {
-    register_code(KC_RCTL);
-    ctl_uscr_pressed = false;
-  }
-}
+// void matrix_scan_user(void)
+// {
+//   // キー押下中の長押し判定を、一定時間経過で確定させる。
+//   if (lng8_pressed && timer_elapsed(usr_timer) > TAPPING_TERM)
+//   {
+//     /* 将来拡張用の空き枠 */
+//     tap_code(KC_GRV);
+//     lng8_pressed = false;
+//   }
+//   if (ctl_uscr_pressed && timer_elapsed(usr_timer) > TAPPING_TERM)
+//   {
+//     register_code(KC_RCTL);
+//     ctl_uscr_pressed = false;
+//   }
+// }
 
 #ifdef OLED_ENABLE
 
