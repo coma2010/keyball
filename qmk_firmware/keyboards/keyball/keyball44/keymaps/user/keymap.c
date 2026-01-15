@@ -21,10 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "keymap_japanese.h"
 
-// Keyball44 custom keymap: defines combos, overrides, and KC_LNG8 macro behavior.
+// このファイルの位置/役割: keyball44ユーザー配列のキー配置、タップダンス、独自挙動をまとめる
+// 目的: キー入力の意味づけと、長押し・同時押し・レイヤー遷移のふるまいを明確化する
 
 enum layer_number
 {
+  // レイヤーIDの定義。各レイヤーの目的は下のkeymapsで説明する。
   _DEFAULT = 0,
   _NUMBER,
   _BRACKET,
@@ -33,8 +35,7 @@ enum layer_number
   _MISC
 };
 
-// combo setting
-// #ifdef COMBO_ENABLE
+// 同時押しコンボの定義。2キーの組み合わせを単発のキー/機能に割り当てる。
 const uint16_t PROGMEM my_up[] = {KC_U, KC_I, COMBO_END};
 const uint16_t PROGMEM my_down[] = {KC_M, KC_COMM, COMBO_END};
 const uint16_t PROGMEM my_left[] = {KC_H, KC_J, COMBO_END};
@@ -60,7 +61,7 @@ combo_t key_combos[] = {
 // # define OVR_TGL KEY_OVERRIDE_TOGGLE
 // #include "key_override.h"
 
-// // Shift + Backspace -> Delete
+// // Shift + Backspace で Delete を送る
 // const key_override_t delete_on_shift_backspace = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 
 // // 必須: オーバーライド配列を定義 (終端は NULL)
@@ -71,13 +72,16 @@ combo_t key_combos[] = {
 
 enum custom_keycodes
 {
-  S_ARW = SAFE_RANGE, // User 0: ->
-  D_ARW,              // User 1: =>
+  // SAFE_RANGE以降はユーザー独自のキーコード領域。
+  S_ARW = SAFE_RANGE, // ユーザー0: ->
+  D_ARW,              // ユーザー1: =>
   CTL_USCR,
 };
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record)
 {
+  // 連打時に「タップ優先」で誤判定を減らす対象キーを指定する。
+  // ここに列挙したキーは、素早いタップの取りこぼしを避ける意図がある。
   switch (keycode)
   {
   case LCTL_T(KC_Z):
@@ -90,7 +94,7 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record)
 }
 
 /////////////////////////
-// Tap Dance
+// Tap Dance: 1回/2回/長押しなどの組み合わせで異なる動作を返す仕組み。
 typedef enum
 {
   TD_NONE,
@@ -99,7 +103,7 @@ typedef enum
   TD_SINGLE_HOLD,
   TD_DOUBLE_TAP,
   TD_DOUBLE_HOLD,
-  TD_DOUBLE_SINGLE_TAP, // Send two single taps
+  TD_DOUBLE_SINGLE_TAP, // 単発タップを2回送る
   TD_TRIPLE_TAP,
   TD_TRIPLE_HOLD
 } td_state_t;
@@ -110,7 +114,7 @@ typedef struct
   td_state_t state;
 } td_tap_t;
 
-// Tap Dance declarations
+// Tap Danceの識別子。keymaps内のTD()で参照する。
 enum
 {
   TD_1,
@@ -137,52 +141,52 @@ enum
 
 td_state_t cur_dance(tap_dance_state_t *state);
 
-// For the x tap dance. Put it here so it can be used in any keymap
+// XのTap Dance用宣言。どのキーマップからでも使えるようにここで宣言する。
 void x_finished(tap_dance_state_t *state, void *user_data);
 void x_reset(tap_dance_state_t *state, void *user_data);
 
-/* Return an integer that corresponds to what kind of tap dance should be executed.
+/* 実行すべきTap Danceの種類に対応する値を返す。
  *
- * How to figure out tap dance state: interrupted and pressed.
+ * Tap Danceの状態判定は interrupted と pressed を使う。
  *
- * Interrupted: If the state of a dance is "interrupted", that means that another key has been hit
- *  under the tapping term. This is typically indicative that you are trying to "tap" the key.
+ * Interrupted: tapping term 内に他のキーが押された状態。
+ *  通常は「タップしたい意図」を示す。
  *
- * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
- *  has ended, but the key is still being pressed down. This generally means the key is being "held".
+ * Pressed: キーが押され続けているかどうか。
+ *  true の場合、tapping term が終了しても押下が続いており、長押し意図とみなす。
  *
- * One thing that is currently not possible with qmk software in regards to tap dance is to mimic the "permissive hold"
- *  feature. In general, advanced tap dances do not work well if they are used with commonly typed letters.
- *  For example "A". Tap dances are best used on non-letter keys that are not hit while typing letters.
+ * QMKのTap Danceでは、permissive hold と同等の挙動を再現できない。
+ * 一般に、頻出の文字キーに高度なTap Danceを割り当てると誤作動が起きやすい。
+ * 例: "A"。Tap Danceは非文字キーに置く方が安定する。
  *
- * Good places to put an advanced tap dance:
- *  z,q,x,j,k,v,b, any function key, home/end, comma, semi-colon
+ * 高度なTap Danceの配置候補:
+ *  z,q,x,j,k,v,b, ファンクションキー, home/end, カンマ, セミコロン
  *
- * Criteria for "good placement" of a tap dance key:
- *  Not a key that is hit frequently in a sentence
- *  Not a key that is used frequently to double tap, for example 'tab' is often double tapped in a terminal, or
- *    in a web form. So 'tab' would be a poor choice for a tap dance.
- *  Letters used in common words as a double. For example 'p' in 'pepper'. If a tap dance function existed on the
- *    letter 'p', the word 'pepper' would be quite frustrating to type.
+ * Tap Danceの配置が良い条件:
+ *  文中で頻繁に使うキーではないこと。
+ *  2連打されやすいキーではないこと。例: 端末やWebフォームでのTab連打。
+ *  よくある単語で連続入力される文字ではないこと。例: "pepper" の p。
  *
- * For the third point, there does exist the 'TD_DOUBLE_SINGLE_TAP', however this is not fully tested
+ * 3点目には TD_DOUBLE_SINGLE_TAP があるが、十分に検証されていない。
  *
  */
 td_state_t cur_dance(tap_dance_state_t *state)
 {
+  // 入力の回数/割り込み/押下継続の状態から、Tap Danceの状態を判定する。
+  // ここでの判定が各finished/resetの分岐に使われる。
   if (state->count == 1)
   {
     if (state->interrupted || !state->pressed)
       return TD_SINGLE_TAP;
-    // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
+    // 割り込みはなく、押下が続いているため長押し(HOLD)として扱う。
     else
       return TD_SINGLE_HOLD;
   }
   else if (state->count == 2)
   {
-    // TD_DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
-    // action when hitting 'pp'. Suggested use case for this return value is when you want to send two
-    // keystrokes of the key, and not the 'double tap' action/macro.
+    // TD_DOUBLE_SINGLE_TAP は "pepper" のような連続入力と、
+    // 'pp' のダブルタップ操作を区別するために使う。
+    // 目的は、ダブルタップ機能ではなく「同じキーの2回送出」を行うこと。
     if (state->interrupted)
       return TD_DOUBLE_SINGLE_TAP;
     else if (state->pressed)
@@ -191,9 +195,9 @@ td_state_t cur_dance(tap_dance_state_t *state)
       return TD_DOUBLE_TAP;
   }
 
-  // Assumes no one is trying to type the same letter three times (at least not quickly).
-  // If your tap dance key is 'KC_W', and you want to type "www." quickly - then you will need to add
-  // an exception here to return a 'TD_TRIPLE_SINGLE_TAP', and define that enum just like 'TD_DOUBLE_SINGLE_TAP'
+  // 同じ文字を素早く3回連続入力するケースは想定外。
+  // 例: Tap DanceがKC_Wで "www." を素早く入力する場合は、
+  // TD_TRIPLE_SINGLE_TAP を返す例外を追加し、TD_DOUBLE_SINGLE_TAP同様に定義する必要がある。
   if (state->count == 3)
   {
     if (state->interrupted || !state->pressed)
@@ -205,7 +209,7 @@ td_state_t cur_dance(tap_dance_state_t *state)
     return TD_UNKNOWN;
 }
 
-// Create an instance of 'td_tap_t' for the 'x' tap dance.
+// Tap Danceの内部状態を保持する。キーごとに独立させることで誤動作を防ぐ。
 static td_tap_t xtap_state = {
     .is_press_action = true,
     .state = TD_NONE};
@@ -221,6 +225,7 @@ static td_tap_t zerotap_state = {
 
 void x_finished(tap_dance_state_t *state, void *user_data)
 {
+  // XのTap Dance: 1回/長押し/2回で別のキーを出す。
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state)
   {
@@ -236,9 +241,9 @@ void x_finished(tap_dance_state_t *state, void *user_data)
   case TD_DOUBLE_HOLD:
     register_code(KC_LALT);
     break;
-  // Last case is for fast typing. Assuming your key is `f`:
-  // For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
-  // In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
+  // 最後のケースは高速入力向け。キーが `f` の場合を想定。
+  // 例: "buffer" を入力するときに `ff` を送りたいのに `Esc` が出るのを防ぐ。
+  // 高速入力で `ff` を出すには、次の打鍵が `TAPPING_TERM`（既定200ms）内に必要。
   case TD_DOUBLE_SINGLE_TAP:
     tap_code(KC_X);
     register_code(KC_X);
@@ -250,6 +255,7 @@ void x_finished(tap_dance_state_t *state, void *user_data)
 
 void x_reset(tap_dance_state_t *state, void *user_data)
 {
+  // 押下解除時に、送出したキーを確実に戻す。
   switch (xtap_state.state)
   {
   case TD_SINGLE_TAP:
@@ -275,6 +281,7 @@ void x_reset(tap_dance_state_t *state, void *user_data)
 
 void lprin_finished(tap_dance_state_t *state, void *user_data)
 {
+  // 左かっこ系のTap Dance。回数で「()」「[]」「{}」を出し分ける。
   lprintap_state.state = cur_dance(state);
   switch (lprintap_state.state)
   {
@@ -299,6 +306,7 @@ void lprin_finished(tap_dance_state_t *state, void *user_data)
 
 void lprin_reset(tap_dance_state_t *state, void *user_data)
 {
+  // 押下解除時の後始末。押した修飾/記号を元に戻す。
   switch (lprintap_state.state)
   {
   case TD_SINGLE_TAP:
@@ -323,6 +331,7 @@ void lprin_reset(tap_dance_state_t *state, void *user_data)
 
 void rprin_finished(tap_dance_state_t *state, void *user_data)
 {
+  // 右かっこ系のTap Dance。回数で「)」「]」「}」を出し分ける。
   rprintap_state.state = cur_dance(state);
   switch (rprintap_state.state)
   {
@@ -347,6 +356,7 @@ void rprin_finished(tap_dance_state_t *state, void *user_data)
 
 void rprin_reset(tap_dance_state_t *state, void *user_data)
 {
+  // 押下解除時の後始末。押した修飾/記号を元に戻す。
   switch (rprintap_state.state)
   {
   case TD_SINGLE_TAP:
@@ -371,6 +381,7 @@ void rprin_reset(tap_dance_state_t *state, void *user_data)
 
 void zero_finished(tap_dance_state_t *state, void *user_data)
 {
+  // 0キーのTap Dance。長押し時の修飾や記号を分岐する。
   zerotap_state.state = cur_dance(state);
   switch (zerotap_state.state)
   {
@@ -392,6 +403,7 @@ void zero_finished(tap_dance_state_t *state, void *user_data)
 
 void zero_reset(tap_dance_state_t *state, void *user_data)
 {
+  // 押下解除時に、送出したキーを確実に解除する。
   switch (zerotap_state.state)
   {
   case TD_SINGLE_TAP:
@@ -456,6 +468,7 @@ void zero_reset(tap_dance_state_t *state, void *user_data)
 // }
 
 tap_dance_action_t tap_dance_actions[] = {
+    // Tap Danceの実動作定義。IDと動作の対応を一元管理する。
     [TD_1] = ACTION_TAP_DANCE_DOUBLE(KC_1, JP_EXLM),
     [TD_2] = ACTION_TAP_DANCE_DOUBLE(KC_2, JP_AT),
     [TD_3] = ACTION_TAP_DANCE_DOUBLE(KC_3, JP_HASH),
@@ -479,57 +492,65 @@ tap_dance_action_t tap_dance_actions[] = {
     [X_CTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset)};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // keymap for default (VIA)
+    // デフォルト(VIA)向けのキーマップ
     [_DEFAULT] = LAYOUT_universal(
+        // 基本レイヤー: 文字入力の主軸。Tap/Holdやレイヤー移動を多用する。
         KC_ESC, TD(TD_Q_ESC), TD(TD_W_TAB), KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
-        LSFT_T(KC_CAPS), LSFT_T(KC_A), KC_S, LT(_FUNCTION, KC_D), LT(_BRACKET, KC_F), KC_G, KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
+        LSFT_T(KC_CAPS), LSFT_T(KC_A), KC_S, LT(_FUNCTION, KC_D), LT(_MOUSE, KC_F), LT(_BRACKET, KC_G), KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
         LCTL_T(KC_LNG1), LCTL_T(KC_Z), KC_X, LT(_MISC, KC_C), LT(_MOUSE, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
         // KC_LALT, KC_LGUI, CTL_USCR, KC_LNG8, LT(_NUMBER, KC_TAB), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
-        S(JP_BSLS), KC_LALT, CTL_USCR, KC_LNG8, LGUI_T(KC_TAB), LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
+        S(JP_BSLS), KC_LALT, LCTL_T(KC_ESC), KC_LNG7, LGUI_T(KC_ENT), LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
 
     [_NUMBER] = LAYOUT_universal(
+        // 数字/記号レイヤー: 右手側中心で数字と記号を集約。
         // _______, S(KC_1), KC_LBRC, S(KC_3), S(KC_4), S(KC_5), KC_EQL, S(KC_6), S(JP_COLN), JP_SCLN, JP_COLN, _______,
         // _______, LSFT_T(KC_1), LT(_MOUSE, KC_2), LT(_FUNCTION, KC_3), LT(_BRACKET, KC_4), KC_5, KC_6, KC_7, KC_8, KC_9, RSFT_T(KC_0), _______,
         // _______, LCTL_T(JP_LBRC), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), KC_MINS, S(JP_CIRC), S(JP_SCLN), _______, _______, _______, _______,
         _______, S(KC_1), JP_AT, S(KC_3), S(KC_4), S(KC_5), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), S(KC_8), S(KC_9), _______,
-        _______, LSFT_T(KC_1), LT(_MISC, KC_2), LT(_FUNCTION, KC_3), LT(_BRACKET, KC_4), TD(TD_5), TD(TD_6), TD(TD_7), TD(TD_8), TD(TD_9), TD(TD_00), _______,
+        _______, LSFT_T(KC_1), LT(_MISC, KC_2), LT(_FUNCTION, KC_3), LT(_MOUSE, KC_4), LT(_BRACKET, KC_5), TD(TD_6), TD(TD_7), TD(TD_8), TD(TD_9), TD(TD_00), _______,
         _______, LCTL_T(JP_BSLS), S(JP_AT), S(JP_CIRC), S(JP_BSLS), S(JP_YEN), S(JP_SCLN), KC_MINS, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, TG(_NUMBER)),
 
     [_BRACKET] = LAYOUT_universal(
-        _______, KC_ESC, KC_TAB, S_ARW, D_ARW, XXXXXXX, JP_YEN, TD(TD_QUOT), KC_INS, KC_DEL, KC_BSPC, _______,
-        _______, LSFT_T(KC_CAPS), LT(_MISC, KC_PGUP), LT(_FUNCTION, KC_HOME), XXXXXXX, XXXXXXX, S(JP_CIRC), S(KC_8), S(KC_9), JP_SCLN, JP_COLN, _______,
-        _______, LCTL_T(KC_LNG1), KC_PGDN, KC_END, XXXXXXX, XXXXXXX, JP_BSLS, TD(TD_LBRC), TD(TD_RBRC), _______, KC_ENT, _______,
+        // 括弧/編集系レイヤー: かっこ類や移動系をまとめる。
+        _______, KC_ESC, KC_TAB, S_ARW, D_ARW, XXXXXXX, JP_YEN, S(JP_BSLS) KC_INS, KC_DEL, KC_BSPC, _______,
+        _______, LSFT_T(KC_CAPS), LT(_MISC, KC_PGUP), LT(_FUNCTION, KC_HOME), XXXXXXX, XXXXXXX, S(KC_8), TD(TD_LBRC), TD(TD_QUOT) JP_SCLN, JP_COLN, _______,
+        _______, LCTL_T(KC_LNG1), KC_PGDN, KC_END, XXXXXXX, XXXXXXX, S(KC_9), TD(TD_RBRC), _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, TG(_BRACKET)),
 
     [_FUNCTION] = LAYOUT_universal(
-        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, XXXXXXX, TD(TD_LPRIN), KC_INS, KC_DEL, KC_BSPC, _______,
-        _______, KC_F5, LT(_MISC, KC_F6), XXXXXXX, KC_F7, KC_F8, XXXXXXX, S_ARW, D_ARW, TD(TD_LPRIN), TD(TD_RPRIN), _______,
-        _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, XXXXXXX, TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), XXXXXXX, _______,
+        // ファンクションレイヤー: Fキー/記号関連を配置。
+        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, KC_PGUP, KC_UP, KC_INS, KC_DEL, KC_BSPC, _______,
+        _______, KC_F5, LT(_MISC, KC_F6), XXXXXXX, KC_F7, KC_F8, KC_LEFT, KC_RIGHT, KC_BTN1, KC_BTN2, KC_BTN3, _______,
+        _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, KC_PGDN, KC_DOWN, SCRL_MO, KC_BTN4, KC_BTN5, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_FUNCTION), _______, TG(_FUNCTION)),
 
     [_MOUSE] = LAYOUT_universal(
-        _______, XXXXXXX, KC_HOME, KC_UP, KC_PGUP, XXXXXXX, KC_PGUP, KC_UP, KC_INS, KC_DEL, KC_BSPC, _______,
-        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, KC_LEFT, KC_RIGHT, KC_BTN1, KC_BTN2, KC_BTN3, _______,
-        _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, XXXXXXX, KC_PGDN, KC_DOWN, SCRL_MO, KC_BTN4, KC_BTN5, _______,
+        // マウスレイヤー: 移動/スクロール/クリックをまとめる。
+        _______, XXXXXXX, KC_HOME, KC_UP, KC_PGUP, XXXXXXX, XXXXXXX, TD(TD_LPRIN), KC_INS, KC_DEL, KC_BSPC, _______,
+        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, TD(TD_LPRIN), S_ARW, D_ARW, JP_SCLN, JP_COLN, _______,
+        _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, XXXXXXX, TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), XXXXXXX, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
 
     [_MISC] = LAYOUT_universal(
+        // その他レイヤー: 設定系・速度・スナップなど補助機能を集約。
         _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_FUNCTION), TO(_MOUSE), _______,
         _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, TD(TD_QUOT), SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, KC_LNG1, _______,
         _______, XXXXXXX, XXXXXXX, CPI_D1K, CPI_D100, TD(TD_W_TAB), XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, KC_LNG2, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, TG(_MISC)),
 };
-// clang-format on
+// clang-format を有効化
 
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-  // Auto enable scroll mode when the highest layer is 3
+  // 最上位レイヤーが_MISＣのときにスクロールモードを自動ON。
   keyball_set_scroll_mode(get_highest_layer(state) == _MISC);
   return state;
 }
 
-static uint16_t usr_timer = 0; // Tracks tap vs hold window for KC_LNG8.
+// タップ/ホールド判定に使う共通タイマとフラグ。
+// ここでのフラグは process_record_user と matrix_scan_user の連携に使う。
+static uint16_t usr_timer = 0; // KC_LNG8 のタップ/ホールド判定用の経過時間を計測する。
 static bool lng8_pressed = false;
 static bool ctl_uscr_pressed = false;
 
@@ -542,11 +563,14 @@ enum key_state
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
+  // ユーザー独自キーの押下/解放をハンドリングする。
+  // ここでは「短押し/長押し」で異なる送出内容に切り替える。
   switch (keycode)
   {
-  case KC_LNG8:
+  case KC_LNG7:
     if (record->event.pressed)
     {
+      tap_code(KC_GRV);
       usr_timer = timer_read();
       lng8_pressed = true;
     }
@@ -554,7 +578,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     {
       if (timer_elapsed(usr_timer) <= TAPPING_TERM)
       {
-        // tap_code(KC_GRV);
+        tap_code(KC_GRV);
+        tap_code(KC_TAB);
+        lng8_pressed = false;
+      }
+      else
+      {
+        tap_code16(C(KC_M)); // ctrl+mを送る
+        tap_code(KC_GRV);
+        lng8_pressed = false;
+        // tap_code(KC_LNG2);
+        // tap_code(KC_LNG1); // 確実に英数にする
+      }
+    }
+    return false;
+    break;
+  case KC_LNG8:
+    if (record->event.pressed)
+    {
+      tap_code(KC_GRV);
+      usr_timer = timer_read();
+      lng8_pressed = true;
+    }
+    else
+    {
+      if (timer_elapsed(usr_timer) <= TAPPING_TERM)
+      {
+        tap_code(KC_GRV);
         lng8_pressed = false;
         tap_code(KC_ENT);
       }
@@ -621,12 +671,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   case S_ARW:
     if (record->event.pressed)
     {
+      // 矢印文字列を明示送出する。
       SEND_STRING("->");
     }
     break;
   case D_ARW:
     if (record->event.pressed)
     {
+      // 矢印文字列を明示送出する。
       SEND_STRING("_>");
     }
     break;
@@ -638,9 +690,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
 void matrix_scan_user(void)
 {
+  // キー押下中の長押し判定を、一定時間経過で確定させる。
   if (lng8_pressed && timer_elapsed(usr_timer) > TAPPING_TERM)
   {
-    /* code */
+    /* 将来拡張用の空き枠 */
     tap_code(KC_GRV);
     lng8_pressed = false;
   }
@@ -657,6 +710,7 @@ void matrix_scan_user(void)
 
 void oledkit_render_info_user(void)
 {
+  // OLEDにキー情報/ボール情報/レイヤーを順に描画する。
   keyball_oled_render_keyinfo();
   keyball_oled_render_ballinfo();
   keyball_oled_render_layerinfo();
