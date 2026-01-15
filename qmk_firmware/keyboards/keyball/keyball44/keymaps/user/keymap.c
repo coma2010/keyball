@@ -520,17 +520,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FUNCTION] = LAYOUT_universal(
         // ファンクションレイヤー: Fキー/記号関連を配置。
-        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, KC_PGUP, KC_UP, KC_INS, KC_DEL, KC_BSPC, _______,
-        _______, KC_F5, KC_F6, XXXXXXX, KC_F7, KC_F8, KC_LEFT, KC_RIGHT, KC_BTN1, KC_BTN2, KC_BTN3, _______,
-        _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, KC_PGDN, KC_DOWN, SCRL_MO, KC_BTN4, KC_BTN5, _______,
-        _______, _______, _______, _______, _______, _______, _______, TG(_FUNCTION), _______, TG(_FUNCTION)),
-
-    [_MOUSE] = LAYOUT_universal(
-        // マウスレイヤー: 移動/スクロール/クリックをまとめる。
         _______, XXXXXXX, KC_HOME, KC_UP, KC_PGUP, XXXXXXX, XXXXXXX, TD(TD_LPRIN), KC_INS, KC_DEL, KC_BSPC, _______,
         _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, TD(TD_LPRIN), S_ARW, D_ARW, JP_SCLN, JP_COLN, _______,
         _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, XXXXXXX, TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), XXXXXXX, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
+
+    [_MOUSE] = LAYOUT_universal(
+        // マウスレイヤー: 移動/スクロール/クリックをまとめる。
+        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, KC_PGUP, KC_UP, KC_INS, KC_DEL, KC_BSPC, _______,
+        _______, KC_F5, KC_F6, XXXXXXX, KC_F7, KC_F8, KC_LEFT, KC_RIGHT, KC_BTN1, KC_BTN2, KC_BTN3, _______,
+        _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, KC_PGDN, KC_DOWN, SCRL_MO, KC_BTN4, KC_BTN5, _______,
+        _______, _______, _______, _______, _______, _______, _______, TG(_FUNCTION), _______, TG(_FUNCTION)),
 
     [_MISC] = LAYOUT_universal(
         // その他レイヤー: 設定系・速度・スナップなど補助機能を集約。
