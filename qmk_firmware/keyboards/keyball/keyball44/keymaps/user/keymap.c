@@ -645,31 +645,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
     return false;
     break;
-  case KC_LNG9:
-    if (record->event.pressed)
-    {
-      usr_timer = timer_read();
-      lng8_pressed = true;
-    }
-    else
-    {
-      if (timer_elapsed(usr_timer) <= TAPPING_TERM)
-      {
-        // tap_code(KC_GRV);
-        lng8_pressed = false;
-        tap_code(KC_ENT);
-      }
-      else
-      {
-        // tap_code16(C(KC_M));
-        tap_code(KC_GRV);
-        // tap_code(KC_LNG2);
-        // tap_code(KC_LNG1); // 確実に英数にする
-        lng8_pressed = false;
-      }
-    }
-    return false;
-    break;
   case CTL_USCR:
     if (record->event.pressed)
     {
