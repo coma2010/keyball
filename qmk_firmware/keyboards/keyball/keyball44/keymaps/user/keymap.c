@@ -31,7 +31,7 @@ enum layer_number
   _NUMBER,
   _BRACKET,
   _MOUSE,
-  _FUNCTION,
+  // _FUNCTION,
   _MISC
 };
 
@@ -525,12 +525,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, KC_PGDN, KC_DOWN, SCRL_MO, SCRL_TO, KC_BTN4, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
 
-    [_FUNCTION] = LAYOUT_universal(
-        // ファンクションレイヤー: Fキー/記号関連を配置。
-        _______, XXXXXXX, KC_HOME, KC_UP, KC_PGUP, XXXXXXX, XXXXXXX, TD(TD_LPRIN), KC_INS, KC_DEL, KC_BSPC, _______,
-        _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, TD(TD_LPRIN), S_ARW, D_ARW, JP_SCLN, JP_COLN, _______,
-        _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, XXXXXXX, TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), XXXXXXX, _______,
-        _______, _______, _______, _______, _______, _______, _______, TG(_FUNCTION), _______, TG(_FUNCTION)),
+    // [_FUNCTION] = LAYOUT_universal(
+    //     // ファンクションレイヤー: Fキー/記号関連を配置。
+    //     _______, XXXXXXX, KC_HOME, KC_UP, KC_PGUP, XXXXXXX, XXXXXXX, TD(TD_LPRIN), KC_INS, KC_DEL, KC_BSPC, _______,
+    //     _______, KC_LSFT, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, TD(TD_LPRIN), S_ARW, D_ARW, JP_SCLN, JP_COLN, _______,
+    //     _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, XXXXXXX, TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), XXXXXXX, _______,
+    //     _______, _______, _______, _______, _______, _______, _______, TG(_FUNCTION), _______, TG(_FUNCTION)),
 
     [_MISC] = LAYOUT_universal(
         // その他レイヤー: 設定系・速度・スナップなど補助機能を集約。
