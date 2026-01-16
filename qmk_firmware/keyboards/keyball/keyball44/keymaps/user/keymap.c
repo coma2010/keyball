@@ -534,7 +534,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MISC] = LAYOUT_universal(
         // その他レイヤー: 設定系・速度・スナップなど補助機能を集約。
-        _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_FUNCTION), TO(_MOUSE), _______,
+        _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), _______, TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_MOUSE), _______,
         _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, TD(TD_QUOT), SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, KC_LNG1, _______,
         _______, XXXXXXX, AML_TO, CPI_D1K, CPI_D100, TD(TD_W_TAB), XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, KC_LNG2, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, TG(_MISC)),
