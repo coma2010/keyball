@@ -30,8 +30,8 @@ enum layer_number
   _DEFAULT = 0,
   _NUMBER,
   _BRACKET,
-  _FUNCTION,
   _MOUSE,
+  _FUNCTION,
   _MISC
 };
 
@@ -518,6 +518,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, LCTL_T(KC_LNG1), KC_PGDN, KC_END, XXXXXXX, XXXXXXX, S(KC_9), TD(TD_RBRC), _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, TG(_BRACKET)),
 
+    [_MOUSE] = LAYOUT_universal(
+        // マウスレイヤー: 移動/スクロール/クリックをまとめる。
+        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, KC_PGUP, KC_UP, KC_INS, KC_DEL, KC_BSPC, _______,
+        _______, KC_F5, KC_F6, XXXXXXX, KC_F7, KC_F8, KC_LEFT, KC_RIGHT, KC_BTN1, KC_BTN2, KC_BTN3, _______,
+        _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, KC_PGDN, KC_DOWN, SCRL_MO, SCRL_TO, KC_BTN4, _______,
+        _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
+
     [_FUNCTION] = LAYOUT_universal(
         // ファンクションレイヤー: Fキー/記号関連を配置。
         _______, XXXXXXX, KC_HOME, KC_UP, KC_PGUP, XXXXXXX, XXXXXXX, TD(TD_LPRIN), KC_INS, KC_DEL, KC_BSPC, _______,
@@ -525,18 +532,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_LCTL, KC_END, KC_DOWN, KC_PGDN, XXXXXXX, TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TD(TD_QUOT), XXXXXXX, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_FUNCTION), _______, TG(_FUNCTION)),
 
-    [_MOUSE] = LAYOUT_universal(
-        // マウスレイヤー: 移動/スクロール/クリックをまとめる。
-        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, KC_PGUP, KC_UP, KC_INS, KC_DEL, KC_BSPC, _______,
-        _______, KC_F5, KC_F6, XXXXXXX, KC_F7, KC_F8, KC_LEFT, KC_RIGHT, KC_BTN1, KC_BTN2, KC_BTN3, _______,
-        _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, KC_PGDN, KC_DOWN, SCRL_MO, KC_BTN4, KC_BTN5, _______,
-        _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
-
     [_MISC] = LAYOUT_universal(
         // その他レイヤー: 設定系・速度・スナップなど補助機能を集約。
         _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_FUNCTION), TO(_MOUSE), _______,
         _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, TD(TD_QUOT), SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, KC_LNG1, _______,
-        _______, XXXXXXX, XXXXXXX, CPI_D1K, CPI_D100, TD(TD_W_TAB), XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, KC_LNG2, _______,
+        _______, XXXXXXX, AML_TO, CPI_D1K, CPI_D100, TD(TD_W_TAB), XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, KC_LNG2, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, TG(_MISC)),
 };
 // clang-format を有効化
@@ -567,6 +567,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // ここでは「短押し/長押し」で異なる送出内容に切り替える。
   switch (keycode)
   {
+  case KC_LNG6:
+    if (record->event.pressed)
+    {
+      tap_code(KC_GRV);
+      usr_timer = timer_read();
+      lng8_pressed = true;
+    }
+    else
+    {
+      if (timer_elapsed(usr_timer) <= TAPPING_TERM)
+      {
+        tap_code(KC_GRV);
+        tap_code(KC_SPC);
+        lng8_pressed = false;
+      }
+      else
+      {
+        tap_code16(C(KC_M)); // ctrl+mを送る
+        tap_code(KC_GRV);
+        lng8_pressed = false;
+        // tap_code(KC_LNG2);
+        // tap_code(KC_LNG1); // 確実に英数にする
+      }
+    }
+    return false;
+    break;
   case KC_LNG7:
     if (record->event.pressed)
     {
