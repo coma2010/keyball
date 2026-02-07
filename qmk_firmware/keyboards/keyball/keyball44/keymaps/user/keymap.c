@@ -567,7 +567,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // ここでは「短押し/長押し」で異なる送出内容に切り替える。
   switch (keycode)
   {
-  case KC_LNG6: // 単押しCAPS
+  case KC_LNG6: // 単押しGRV
     if (record->event.pressed)
     {
       tap_code(KC_GRV);
@@ -583,6 +583,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       else
       {
         // tap_code16(C(KC_M)); // ctrl+mを送る
+        tap_code16(C(KC_M)); // ctrl+mを送る
         tap_code(KC_GRV);
         lng8_pressed = false;
         // tap_code(KC_LNG2);
