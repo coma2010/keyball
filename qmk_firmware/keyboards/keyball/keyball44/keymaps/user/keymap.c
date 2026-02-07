@@ -499,7 +499,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LSFT_T(KC_CAPS), LSFT_T(KC_A), KC_S, LT(_MOUSE, KC_D), LT(_BRACKET, KC_F), KC_G, KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
         LCTL_T(KC_LNG1), LCTL_T(KC_Z), KC_X, KC_C, LT(_MISC, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
         // KC_LALT, KC_LGUI, CTL_USCR, KC_LNG8, LT(_NUMBER, KC_TAB), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
-        S(JP_BSLS), KC_LALT, LCTL_T(KC_ESC), KC_LNG7, LGUI_T(KC_ENT), LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
+        S(JP_BSLS), LALT_T(KC_ENT), LCTL_T(KC_ESC), LCTL_T(KC_TAB), KC_LNG6, LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
 
     [_NUMBER] = LAYOUT_universal(
         // 数字/記号レイヤー: 右手側中心で数字と記号を集約。
@@ -567,7 +567,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
   // ここでは「短押し/長押し」で異なる送出内容に切り替える。
   switch (keycode)
   {
-  case KC_LNG6:
+  case KC_LNG6: // 単押しCAPS
     if (record->event.pressed)
     {
       tap_code(KC_GRV);
@@ -578,13 +578,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     {
       if (timer_elapsed(usr_timer) <= TAPPING_TERM)
       {
-        tap_code(KC_GRV);
+        tap_code(KC_CAPS);
         tap_code(KC_SPC);
         lng8_pressed = false;
       }
       else
       {
-        tap_code16(C(KC_M)); // ctrl+mを送る
+        // tap_code16(C(KC_M)); // ctrl+mを送る
         tap_code(KC_GRV);
         lng8_pressed = false;
         // tap_code(KC_LNG2);
@@ -593,7 +593,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
     return false;
     break;
-  case KC_LNG7:
+  case KC_LNG7: // 単押しタブ
     if (record->event.pressed)
     {
       tap_code(KC_GRV);
@@ -619,7 +619,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
     return false;
     break;
-  case KC_LNG8:
+  case KC_LNG8: // 単押しエンター
     if (record->event.pressed)
     {
       tap_code(KC_GRV);
