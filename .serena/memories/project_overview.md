@@ -1,0 +1,3 @@
+- Purpose: Keyball split keyboard firmware repository based on QMK; includes multiple boards (keyball39/44/46/61) and QMK keyboard definitions under `qmk_firmware/keyboards/keyball`.
+- Tech stack: QMK Firmware (C), AVR toolchain/gmake for builds.
+- Structure: top-level board docs and assets; implementation under `qmk_firmware/keyboards/keyball` with per-board directories and shared libs.

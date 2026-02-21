@@ -1,0 +1,3 @@
+- Build example: `qmk compile -j 4 -kb keyball/keyball44 -km user`
+- Legacy build example: `make SKIP_GIT=yes keyball/keyball44:default`
+- Typical shell utilities available: `git`, `ls`, `cd`, `rg`, `find`, `sed`.

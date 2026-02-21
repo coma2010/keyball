@@ -1,0 +1,3 @@
+- After code edits, run targeted compile for affected keyboard/keymap.
+- Report only essential errors/warnings with file anchors.
+- Avoid unrelated file changes.

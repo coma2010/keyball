@@ -1,0 +1,4 @@
+- Follow repository AGENTS instructions.
+- Prefer minimal, reversible diffs.
+- For this session: responses in polite Japanese, include evidence anchors `path:line`.
+- QMK keymaps should match keyboard layout macro argument count exactly.
