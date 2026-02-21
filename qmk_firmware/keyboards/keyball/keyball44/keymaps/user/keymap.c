@@ -39,9 +39,9 @@ enum layer_number
 const uint16_t PROGMEM my_up[] = {KC_U, KC_I, COMBO_END};
 const uint16_t PROGMEM my_down[] = {KC_M, KC_COMM, COMBO_END};
 const uint16_t PROGMEM my_left[] = {KC_H, KC_J, COMBO_END};
-const uint16_t PROGMEM my_right[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM my_btn1[] = {KC_K, KC_L, COMBO_END};
-const uint16_t PROGMEM my_btn2[] = {KC_L, RSFT_T(KC_MINS), COMBO_END};
+const uint16_t PROGMEM my_right[] = {KC_J, LGUI_T(KC_K), COMBO_END};
+const uint16_t PROGMEM my_btn1[] = {LGUI_T(KC_K), LALT_T(KC_L), COMBO_END};
+const uint16_t PROGMEM my_btn2[] = {LALT_T(KC_L), RSFT_T(KC_MINS), COMBO_END};
 const uint16_t PROGMEM my_scrl_mo[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM my_esc[] = {KC_Y, KC_U, COMBO_END};
 const uint16_t PROGMEM my_tab[] = {KC_N, KC_M, COMBO_END};
@@ -496,10 +496,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT] = LAYOUT_universal(
         // 基本レイヤー: 文字入力の主軸。Tap/Holdやレイヤー移動を多用する。
         KC_ESC, TD(TD_Q_ESC), TD(TD_W_TAB), KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
-        LSFT_T(KC_CAPS), LSFT_T(KC_A), KC_S, LT(_MOUSE, KC_D), LT(_BRACKET, KC_F), KC_G, KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
-        LCTL_T(KC_LNG1), LCTL_T(KC_Z), KC_X, KC_C, LT(_MISC, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
+        LGUI_T(KC_CAPS), LSFT_T(KC_A), LALT_T(KC_S), LGUI_T(KC_D), LT(_BRACKET, KC_F), LT(_MOUSE, KC_G), KC_H, KC_J, LGUI_T(KC_K), LALT_T(KC_L), RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
+        LALT_T(KC_LNG1), LCTL_T(KC_Z), KC_X, KC_C, LT(_MISC, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
         // KC_LALT, KC_LGUI, CTL_USCR, KC_LNG8, LT(_NUMBER, KC_TAB), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
-        S(JP_BSLS), KC_LGUI, LALT_T(KC_ESC), LCTL_T(KC_TAB), KC_LNG6, LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
+        S(JP_BSLS), KC_LALT, LGUI_T(KC_ESC), LCTL_T(KC_TAB), KC_LNG6, LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
 
     [_NUMBER] = LAYOUT_universal(
         // 数字/記号レイヤー: 右手側中心で数字と記号を集約。
@@ -534,9 +534,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MISC] = LAYOUT_universal(
         // その他レイヤー: 設定系・速度・スナップなど補助機能を集約。
-        _______, TD(TD_Q_ESC), TD(TD_LPRIN), TD(TD_RPRIN), TD(TD_LBRC), TD(TD_RBRC), _______, TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_MOUSE), _______,
-        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, TD(TD_QUOT), SSNP_FRE, SCRL_DVI, SSNP_VRT, KBC_RST, KC_LNG1, _______,
-        _______, XXXXXXX, AML_TO, CPI_D1K, CPI_D100, TD(TD_W_TAB), XXXXXXX, SCRL_DVD, SSNP_HOR, KBC_SAVE, KC_LNG2, _______,
+        _______, TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_MOUSE), _______, _______, _______, _______, _______, _______, _______,
+        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, TD(TD_QUOT), _______, _______, _______, _______, _______, _______, _______,
+        _______, XXXXXXX, AML_TO, CPI_D1K, CPI_D100, TD(TD_W_TAB), _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, TG(_MISC)),
 };
 // clang-format を有効化
