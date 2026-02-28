@@ -507,8 +507,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // _______, LSFT_T(KC_1), LT(_MOUSE, KC_2), LT(_FUNCTION, KC_3), LT(_BRACKET, KC_4), KC_5, KC_6, KC_7, KC_8, KC_9, RSFT_T(KC_0), _______,
         // _______, LCTL_T(JP_LBRC), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), KC_MINS, S(JP_CIRC), S(JP_SCLN), _______, _______, _______, _______,
         _______, S(KC_1), JP_AT, S(KC_3), S(KC_4), S(KC_5), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), S(KC_8), S(KC_9), _______,
-        _______, LSFT_T(KC_1), KC_2, LT(_MOUSE, KC_3), LT(_BRACKET, KC_4), KC_5, TD(TD_6), TD(TD_7), TD(TD_8), TD(TD_9), TD(TD_00), _______,
-        _______, LCTL_T(JP_BSLS), S(JP_AT), S(JP_CIRC), S(JP_BSLS), S(JP_YEN), S(JP_SCLN), KC_MINS, _______, _______, _______, _______,
+        _______, LSFT_T(KC_1), LALT_T(KC_2), LGUI_T(KC_3), LT(_BRACKET, KC_4), LT(_MOUSE, KC_5), TD(TD_6), TD(TD_7), TD(TD_8), TD(TD_9), TD(TD_00), _______,
+        _______, LCTL_T(JP_BSLS), S(JP_AT), S(JP_CIRC), S(JP_BSLS), S(JP_YEN), KC_PPLS, KC_MINS, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, TG(_NUMBER)),
 
     [_BRACKET] = LAYOUT_universal(
@@ -520,9 +520,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MOUSE] = LAYOUT_universal(
         // マウスレイヤー: 移動/スクロール/クリックをまとめる。
-        _______, KC_F1, KC_F2, XXXXXXX, KC_F3, KC_F4, KC_PGUP, KC_UP, KC_INS, KC_DEL, KC_BSPC, _______,
-        _______, KC_F5, KC_F6, XXXXXXX, KC_F7, KC_F8, KC_LEFT, KC_RIGHT, KC_BTN1, KC_BTN2, KC_BTN3, _______,
-        _______, KC_F9, KC_F10, XXXXXXX, KC_F11, KC_F12, KC_PGDN, KC_DOWN, SCRL_MO, SCRL_TO, KC_BTN4, _______,
+        _______, KC_F1, KC_F2, KC_F3, KC_F4, XXXXXXX, KC_PGUP, KC_UP, KC_INS, KC_DEL, KC_BSPC, _______,
+        _______, KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX, KC_LEFT, KC_RIGHT, KC_BTN1, KC_BTN2, KC_BTN3, _______,
+        _______, KC_F9, KC_F10, KC_F11, KC_F12, XXXXXXX, KC_PGDN, KC_DOWN, SCRL_MO, SCRL_TO, KC_BTN4, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, TG(_MOUSE)),
 
     // [_FUNCTION] = LAYOUT_universal(
@@ -534,7 +534,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MISC] = LAYOUT_universal(
         // その他レイヤー: 設定系・速度・スナップなど補助機能を集約。
-        _______, TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_MOUSE), _______, _______, _______, _______, _______, _______, _______,
+        _______, TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_MOUSE), TO(_MISC), _______, _______, _______, _______, _______, _______,
         _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, TD(TD_QUOT), _______, _______, _______, _______, _______, _______,
         _______, XXXXXXX, AML_TO, CPI_D1K, CPI_D100, TD(TD_W_TAB), _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, TG(_MISC)),
@@ -571,8 +571,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if (record->event.pressed)
     {
       tap_code(KC_GRV);
-      usr_timer = timer_read();
-      lng8_pressed = true;
+      // usr_timer = timer_read();
+      // lng8_pressed = true;
     }
     else
     {
@@ -583,9 +583,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       else
       {
         // tap_code16(C(KC_M)); // ctrl+mを送る
-        tap_code16(C(KC_M)); // ctrl+mを送る
+        // tap_code16(C(KC_M)); // ctrl+mを送る
         tap_code(KC_GRV);
-        lng8_pressed = false;
+        // lng8_pressed = false;
         // tap_code(KC_LNG2);
         // tap_code(KC_LNG1); // 確実に英数にする
       }
