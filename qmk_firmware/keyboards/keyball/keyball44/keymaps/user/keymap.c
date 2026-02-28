@@ -571,8 +571,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if (record->event.pressed)
     {
       tap_code(KC_GRV);
-      // usr_timer = timer_read();
-      // lng8_pressed = true;
+      usr_timer = timer_read();
+      lng8_pressed = true;
     }
     else
     {
@@ -585,7 +585,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         // tap_code16(C(KC_M)); // ctrl+mを送る
         // tap_code16(C(KC_M)); // ctrl+mを送る
         tap_code(KC_GRV);
-        // lng8_pressed = false;
+        lng8_pressed = false;
         // tap_code(KC_LNG2);
         // tap_code(KC_LNG1); // 確実に英数にする
       }
