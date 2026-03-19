@@ -38,8 +38,8 @@ enum layer_number
 // 同時押しコンボの定義。2キーの組み合わせを単発のキー/機能に割り当てる。
 const uint16_t PROGMEM my_up[] = {KC_U, KC_I, COMBO_END};
 const uint16_t PROGMEM my_down[] = {KC_M, KC_COMM, COMBO_END};
-const uint16_t PROGMEM my_left[] = {KC_H, KC_J, COMBO_END};
-const uint16_t PROGMEM my_right[] = {KC_J, LGUI_T(KC_K), COMBO_END};
+const uint16_t PROGMEM my_left[] = {KC_H, LT(_MOUSE, KC_J), COMBO_END};
+const uint16_t PROGMEM my_right[] = {LT(_MOUSE, KC_J), LGUI_T(KC_K), COMBO_END};
 const uint16_t PROGMEM my_btn1[] = {LGUI_T(KC_K), LALT_T(KC_L), COMBO_END};
 const uint16_t PROGMEM my_btn2[] = {LALT_T(KC_L), RSFT_T(KC_MINS), COMBO_END};
 const uint16_t PROGMEM my_scrl_mo[] = {KC_COMM, KC_DOT, COMBO_END};
@@ -496,8 +496,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT] = LAYOUT_universal(
         // 基本レイヤー: 文字入力の主軸。Tap/Holdやレイヤー移動を多用する。
         KC_ESC, TD(TD_Q_ESC), TD(TD_W_TAB), KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
-        LGUI_T(KC_CAPS), LSFT_T(KC_A), LALT_T(KC_S), LGUI_T(KC_D), LT(_BRACKET, KC_F), LT(_MOUSE, KC_G), KC_H, KC_J, LGUI_T(KC_K), LALT_T(KC_L), RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
-        LALT_T(KC_LNG1), LCTL_T(KC_Z), KC_X, KC_C, LT(_MISC, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
+        LGUI_T(KC_CAPS), LSFT_T(KC_A), KC_S, LGUI_T(KC_D), LT(_BRACKET, KC_F), LT(_MOUSE, KC_G), KC_H, LT(_MOUSE, KC_J), LGUI_T(KC_K), LALT_T(KC_L), RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
+        LALT_T(KC_LNG1), LCTL_T(KC_Z), LALT_T(KC_X), KC_C, LT(_MISC, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
         // KC_LALT, KC_LGUI, CTL_USCR, KC_LNG8, LT(_NUMBER, KC_TAB), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
         S(JP_BSLS), KC_LALT, LGUI_T(KC_ESC), LCTL_T(KC_TAB), KC_LNG6, LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
 
@@ -507,7 +507,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // _______, LSFT_T(KC_1), LT(_MOUSE, KC_2), LT(_FUNCTION, KC_3), LT(_BRACKET, KC_4), KC_5, KC_6, KC_7, KC_8, KC_9, RSFT_T(KC_0), _______,
         // _______, LCTL_T(JP_LBRC), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), KC_MINS, S(JP_CIRC), S(JP_SCLN), _______, _______, _______, _______,
         _______, S(KC_1), JP_AT, S(KC_3), S(KC_4), S(KC_5), TD(TD_QUOT), TD(TD_LBRC), TD(TD_RBRC), S(KC_8), S(KC_9), _______,
-        _______, LSFT_T(KC_1), LALT_T(KC_2), LGUI_T(KC_3), LT(_BRACKET, KC_4), LT(_MOUSE, KC_5), TD(TD_6), TD(TD_7), TD(TD_8), TD(TD_9), TD(TD_00), _______,
+        _______, LSFT_T(KC_1), KC_2, KC_3, LT(_BRACKET, KC_4), LT(_MOUSE, KC_5), TD(TD_6), TD(TD_7), TD(TD_8), TD(TD_9), TD(TD_00), _______,
         _______, LCTL_T(JP_BSLS), S(JP_AT), S(JP_CIRC), S(JP_BSLS), S(JP_YEN), KC_PPLS, KC_MINS, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, TG(_NUMBER)),
 
