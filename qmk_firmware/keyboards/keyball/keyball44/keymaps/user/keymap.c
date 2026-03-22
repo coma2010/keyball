@@ -44,7 +44,7 @@ const uint16_t PROGMEM my_btn1[] = {LGUI_T(KC_K), LALT_T(KC_L), COMBO_END};
 const uint16_t PROGMEM my_btn2[] = {LALT_T(KC_L), RSFT_T(KC_MINS), COMBO_END};
 const uint16_t PROGMEM my_scrl_mo[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM my_esc[] = {KC_Y, KC_U, COMBO_END};
-const uint16_t PROGMEM my_tab[] = {KC_N, KC_M, COMBO_END};
+const uint16_t PROGMEM my_tab[] = {KC_N, LT(_MISC, KC_M), COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(my_up, KC_UP),
@@ -497,7 +497,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 基本レイヤー: 文字入力の主軸。Tap/Holdやレイヤー移動を多用する。
         KC_ESC, TD(TD_Q_ESC), TD(TD_W_TAB), KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
         LGUI_T(KC_CAPS), LSFT_T(KC_A), LALT_T(KC_S), LGUI_T(KC_D), LT(_BRACKET, KC_F), LT(_MOUSE, KC_G), LT(_MISC, KC_H), LT(_MOUSE, KC_J), LGUI_T(KC_K), LALT_T(KC_L), RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
-        LALT_T(KC_LNG1), LCTL_T(KC_Z), KC_X, KC_C, LT(_MISC, KC_V), KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
+        LALT_T(KC_LNG1), LCTL_T(KC_Z), KC_X, KC_C, LT(_MISC, KC_V), KC_B, KC_N, LT(_MISC, KC_M), KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
         // KC_LALT, KC_LGUI, CTL_USCR, KC_LNG8, LT(_NUMBER, KC_TAB), LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
         S(JP_BSLS), KC_LALT, LGUI_T(KC_ESC), LCTL_T(KC_TAB), KC_LNG6, LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), TG(_MOUSE), KC_LCTL, TG(_MOUSE)),
 
@@ -514,8 +514,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BRACKET] = LAYOUT_universal(
         // 括弧/編集系レイヤー: かっこ類や移動系をまとめる。
         _______, KC_ESC, KC_TAB, S_ARW, D_ARW, XXXXXXX, JP_YEN, S(JP_BSLS), KC_INS, KC_DEL, KC_BSPC, _______,
-        _______, LSFT_T(KC_CAPS), KC_PGUP, LT(_MOUSE, KC_HOME), XXXXXXX, XXXXXXX, S(KC_8), TD(TD_LBRC), TD(TD_QUOT), JP_SCLN, JP_COLN, _______,
-        _______, LCTL_T(KC_LNG1), KC_PGDN, KC_END, XXXXXXX, XXXXXXX, S(KC_9), TD(TD_RBRC), _______, _______, _______, _______,
+        _______, LSFT_T(KC_CAPS), KC_PGUP, LT(_MOUSE, KC_HOME), XXXXXXX, XXXXXXX, TD(TD_QUOT), S(KC_8), S(KC_9), JP_SCLN, JP_COLN, _______,
+        _______, LCTL_T(KC_LNG1), KC_PGDN, KC_END, XXXXXXX, XXXXXXX, _______, TD(TD_LBRC), TD(TD_RBRC), _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, TG(_BRACKET)),
 
     [_MOUSE] = LAYOUT_universal(
