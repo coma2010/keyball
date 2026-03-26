@@ -220,7 +220,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     if (record->event.pressed)
     {
       // chrome 翻訳環境を明示送出する。
-      tap_code(S(KC_F1));
+      tap_code16(S(KC_F1));
       SEND_STRING("h");
     }
     break;
