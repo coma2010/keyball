@@ -77,6 +77,19 @@ enum custom_keycodes
   D_ARW,              // ユーザー1: =>
 };
 
+enum
+{
+  TD_Q_ESC,
+  TD_QUOT,
+  TD_W_TAB,
+};
+
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_Q_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC),
+    [TD_QUOT] = ACTION_TAP_DANCE_DOUBLE(JP_DQUO, JP_QUOT),
+    [TD_W_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_W, KC_TAB),
+};
+
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record)
 {
   // 連打時に「タップ優先」で誤判定を減らす対象キーを指定する。
@@ -96,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // デフォルト(VIA)向けのキーマップ
     [_DEFAULT] = LAYOUT_universal(
         // 基本レイヤー: 文字入力の主軸。Tap/Holdやレイヤー移動を多用する。
-        KC_ESC, TD(TD_Q_ESC), TD(TD_W_TAB), KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
+        KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
         LGUI_T(KC_CAPS), LSFT_T(KC_A), LALT_T(KC_S), KC_D, LT(_BRACKET, KC_F), KC_G, KC_H, KC_J, KC_K, LALT_T(KC_L), RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
         LALT_T(KC_LNG1), LCTL_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
         S(JP_BSLS), KC_LALT, LGUI_T(KC_CAPS), LCTL_T(KC_TAB), LSFT_T(KC_BSPC), LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), TG(_MOUSE), _______, _______),
@@ -132,8 +145,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MISC] = LAYOUT_universal(
         // その他レイヤー: 設定系・速度・スナップなど補助機能を集約。
         _______, TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_MOUSE), TO(_MISC), _______, _______, _______, _______, _______, _______,
-        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, TD(TD_QUOT), _______, _______, _______, _______, _______, _______,
-        _______, XXXXXXX, AML_TO, CPI_D1K, CPI_D100, TD(TD_W_TAB), _______, _______, _______, _______, _______, _______,
+        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, _______, _______, _______, _______, _______, _______, _______,
+        _______, XXXXXXX, AML_TO, CPI_D1K, CPI_D100, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, _______),
 };
 // clang-format を有効化
