@@ -99,42 +99,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC, TD(TD_Q_ESC), TD(TD_W_TAB), KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
         LGUI_T(KC_CAPS), LSFT_T(KC_A), LALT_T(KC_S), KC_D, LT(_BRACKET, KC_F), KC_G, KC_H, KC_J, KC_K, LALT_T(KC_L), RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
         LALT_T(KC_LNG1), LCTL_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
-        S(JP_BSLS), KC_LALT, LGUI_T(KC_CAPS), LCTL_T(KC_TAB), LSFT_T(KC_BSPC), LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), TG(_MOUSE), _______, _______,
+        S(JP_BSLS), KC_LALT, LGUI_T(KC_CAPS), LCTL_T(KC_TAB), LSFT_T(KC_BSPC), LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), TG(_MOUSE), _______, _______),
 
     [_NUMBER] = LAYOUT_universal(
         // 数字/記号レイヤー: 右手側中心で数字と記号を集約。
         _______, S(KC_1), JP_AT, S(KC_3), S(KC_4), S(KC_5), JP_CIRC, S(KC_6), JP_ASTR, S(KC_8), S(KC_9), _______,
         _______, LSFT_T(KC_1), KC_2, KC_3, LT(_BRACKET, KC_4), LT(_MOUSE, KC_5), KC_6, KC_7, KC_8, KC_9, LSFT_T(KC_0), _______,
         _______, LCTL_T(JP_BSLS), S(JP_AT), S(JP_CIRC), S(JP_BSLS), S(JP_YEN), KC_PPLS, KC_MINS, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, TG(_NUMBER), _______, _______),
 
     [_BRACKET] = LAYOUT_universal(
         // 括弧/編集系レイヤー: かっこ類や移動系をまとめる。
         _______, KC_F1, KC_F2, KC_F3, KC_F4, XXXXXXX, KC_ESC, JP_LBRC, JP_RBRC, KC_DEL, KC_BSPC, _______,
         _______, KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX, S(KC_2), S(JP_LBRC), S(JP_RBRC), JP_SCLN, JP_COLN, _______,
         _______, KC_F9, KC_F10, KC_F11, KC_F12, XXXXXXX, S(KC_7), S(KC_8), S(KC_9), _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, TG(_BRACKET), _______, _______),
 
     [_ARROW] = LAYOUT_universal(
         // ファンクションレイヤー: Fキー/記号関連を配置。
         _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END, _______, _______,
         _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, _______, _______,
         _______, _______, _______, _______, _______, _______, LGUI_T(KC_LEFT), LGUI_T(KC_UP), LGUI_T(KC_DOWN), LGUI_T(KC_RGHT), _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, TG(_ARROW), _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, TG(_ARROW), _______, _______),
 
     [_MOUSE] = LAYOUT_universal(
         // マウスレイヤー: 移動/スクロール/クリックをまとめる。
         _______, _______, _______, _______, _______, XXXXXXX, KC_PGUP, KC_UP, KC_INS, KC_DEL, KC_BSPC, _______,
         _______, _______, _______, _______, _______, XXXXXXX, KC_LEFT, KC_RIGHT, KC_BTN1, KC_BTN2, KC_BTN3, _______,
         _______, _______, _______, _______, _______, XXXXXXX, KC_PGDN, KC_DOWN, SCRL_MO, SCRL_TO, KC_BTN4, _______,
-        _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, TG(_MOUSE), _______, _______),
 
     [_MISC] = LAYOUT_universal(
         // その他レイヤー: 設定系・速度・スナップなど補助機能を集約。
         _______, TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_MOUSE), TO(_MISC), _______, _______, _______, _______, _______, _______,
         _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, TD(TD_QUOT), _______, _______, _______, _______, _______, _______,
         _______, XXXXXXX, AML_TO, CPI_D1K, CPI_D100, TD(TD_W_TAB), _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, TG(_MISC), _______, _______),
 };
 // clang-format を有効化
 
