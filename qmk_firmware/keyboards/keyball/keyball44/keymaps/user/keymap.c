@@ -42,7 +42,9 @@ enum layer_number
 // const uint16_t PROGMEM my_right[] = {LT(_MOUSE, KC_J), LGUI_T(KC_K), COMBO_END};
 // const uint16_t PROGMEM my_btn1[] = {LGUI_T(KC_K), LALT_T(KC_L), COMBO_END};
 // const uint16_t PROGMEM my_btn2[] = {LALT_T(KC_L), RSFT_T(KC_MINS), COMBO_END};
-const uint16_t PROGMEM my_scrl_mo[] = {KC_J, LALT_T(KC_L), COMBO_END};
+const uint16_t PROGMEM my_scrl_mo[] = {LGUI_T(KC_K), LALT_T(KC_L), COMBO_END};
+const uint16_t PROGMEM my_scrl_mo2[] = {KC_K, LALT_T(KC_L), COMBO_END};
+const uint16_t PROGMEM my_scrl_mo3[] = {KC_K, KC_L, COMBO_END};
 // const uint16_t PROGMEM my_esc[] = {KC_Y, KC_U, COMBO_END};
 // const uint16_t PROGMEM my_tab[] = {KC_N, LT(_MISC, KC_M), COMBO_END};
 
@@ -54,6 +56,8 @@ combo_t key_combos[] = {
     // COMBO(my_btn1, KC_BTN1),
     // COMBO(my_btn2, KC_BTN2),
     COMBO(my_scrl_mo, SCRL_MO),
+    COMBO(my_scrl_mo2, SCRL_MO),
+    COMBO(my_scrl_mo3, SCRL_MO),
     // COMBO(my_esc, KC_ESC),
     // COMBO(my_tab, KC_TAB),
 };
@@ -111,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT] = LAYOUT_universal(
         // 基本レイヤー: 文字入力の主軸。Tap/Holdやレイヤー移動を多用する。
         KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
-        LGUI_T(KC_CAPS), LSFT_T(KC_A), LALT_T(KC_S), KC_D, LT(_BRACKET, KC_F), KC_G, KC_H, KC_J, KC_K, LALT_T(KC_L), RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
+        LGUI_T(KC_CAPS), LSFT_T(KC_A), LALT_T(KC_S), KC_D, LT(_BRACKET, KC_F), LT(_ARROW, KC_G), KC_H, KC_J, KC_K, LALT_T(KC_L), RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
         LALT_T(KC_LNG1), LCTL_T(KC_Z), KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, LCTL_T(KC_SLSH), S(KC_INT1),
         S(JP_BSLS), KC_LALT, LGUI_T(KC_TAB), LCTL_T(KC_CAPS), LSFT_T(KC_BSPC), LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), _______, _______, TO(_MOUSE)),
 
@@ -124,15 +128,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BRACKET] = LAYOUT_universal(
         // 括弧/編集系レイヤー: かっこ類や移動系をまとめる。
-        _______, KC_F1, KC_F2, KC_F3, KC_F4, XXXXXXX, KC_ESC, JP_LBRC, JP_RBRC, KC_DEL, KC_BSPC, _______,
-        _______, KC_F5, KC_F6, KC_F7, KC_F8, XXXXXXX, S(KC_2), S(JP_LBRC), S(JP_RBRC), JP_SCLN, JP_COLN, _______,
-        _______, KC_F9, KC_F10, KC_F11, KC_F12, XXXXXXX, S(KC_7), S(KC_8), S(KC_9), _______, _______, _______,
+        _______, KC_F1, KC_F2, KC_F3, XXXXXXX, KC_F4, KC_ESC, JP_LBRC, JP_RBRC, KC_DEL, KC_BSPC, _______,
+        _______, KC_F5, KC_F6, KC_F7, XXXXXXX, KC_F8, S(KC_2), S(JP_LBRC), S(JP_RBRC), JP_SCLN, JP_COLN, _______,
+        _______, KC_F9, KC_F10, KC_F11, XXXXXXX, KC_F12, S(KC_7), S(KC_8), S(KC_9), S(KC_F10), _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_DEFAULT)),
 
     [_ARROW] = LAYOUT_universal(
         // ファンクションレイヤー: Fキー/記号関連を配置。
         _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END, _______, _______,
-        _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, _______, _______,
+        _______, _______, _______, _______, _______, _______, KC_LEFT, KC_UP, KC_DOWN, KC_RGHT, S(KC_F10), _______,
         _______, _______, _______, _______, _______, _______, LGUI_T(KC_LEFT), LGUI_T(KC_UP), LGUI_T(KC_DOWN), LGUI_T(KC_RGHT), _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_DEFAULT)),
 
@@ -145,8 +149,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MISC] = LAYOUT_universal(
         // その他レイヤー: 設定系・速度・スナップなど補助機能を集約。
-        _______, TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_ARROW), TO(_MOUSE), TO(_MISC), _______, _______, _______, _______, _______,
-        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, _______, _______, _______, _______, _______, _______, _______,
+        _______, TO(_DEFAULT), TO(_NUMBER), TO(_BRACKET), TO(_ARROW), TO(_MOUSE), _______, _______, _______, _______, _______, _______,
+        _______, S_ARW, D_ARW, CPI_I1K, CPI_I100, _______, _______, _______, _______, _______, S(KC_F10), _______,
         _______, KBC_SAVE, AML_TO, CPI_D1K, CPI_D100, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, TO(_DEFAULT)),
 };
