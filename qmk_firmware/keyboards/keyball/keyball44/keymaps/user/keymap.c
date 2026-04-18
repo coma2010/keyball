@@ -46,8 +46,8 @@ const uint16_t PROGMEM my_btn2[] = {KC_L, RSFT_T(KC_MINS), COMBO_END};
 // const uint16_t PROGMEM my_scrl_mo2[] = {KC_K, LALT_T(KC_L), COMBO_END};
 const uint16_t PROGMEM my_scrl_mo3[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM my_tg3[] = {KC_U, KC_I, COMBO_END};
-// const uint16_t PROGMEM my_esc[] = {KC_Y, KC_U, COMBO_END};
-// const uint16_t PROGMEM my_tab[] = {KC_N, LT(_MISC, KC_M), COMBO_END};
+const uint16_t PROGMEM my_esc[] = {KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM my_tab[] = {KC_W, KC_E, COMBO_END};
 
 combo_t key_combos[] = {
     // COMBO(my_up, KC_UP),
@@ -60,8 +60,8 @@ combo_t key_combos[] = {
     // COMBO(my_scrl_mo2, SCRL_MO),
     COMBO(my_scrl_mo3, SCRL_MO),
     COMBO(my_tg3, TG(_ARROW)),
-    // COMBO(my_esc, KC_ESC),
-    // COMBO(my_tab, KC_TAB),
+    COMBO(my_esc, KC_ESC),
+    COMBO(my_tab, KC_TAB),
 };
 
 // # define OVR_TGL KEY_OVERRIDE_TOGGLE
@@ -117,9 +117,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT] = LAYOUT_universal(
         // 基本レイヤー: 文字入力の主軸。Tap/Holdやレイヤー移動を多用する。
         KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
-        LGUI_T(KC_CAPS), LSFT_T(KC_A), KC_S, KC_D, LT(_BRACKET, KC_F), LT(_ARROW, KC_G), KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
-        LALT_T(KC_LNG1), LCTL_T(KC_Z), LALT_T(KC_X), KC_C, KC_V, LT(_MOUSE, KC_B), KC_N, KC_M, KC_COMM, LALT_T(KC_DOT), LCTL_T(KC_SLSH), S(KC_INT1),
-        S(JP_BSLS), LALT_T(KC_CAPS), LGUI_T(KC_ESC), LCTL_T(KC_BSPC), LSFT_T(KC_TAB), LSFT_T(KC_ENT), LT(_NUMBER, KC_SPC), _______, _______, TO(_ARROW)),
+        LCTL_T(KC_CAPS), LSFT_T(KC_A), KC_S, KC_D, LT(_BRACKET, KC_F), LT(_ARROW, KC_G), KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
+        LALT_T(KC_TAB), LGUI_T(KC_Z), LALT_T(KC_X), KC_C, KC_V, LT(_MOUSE, KC_B), KC_N, KC_M, KC_COMM, LALT_T(KC_DOT), LGUI_T(KC_SLSH), S(KC_INT1),
+        S(JP_BSLS), LALT_T(KC_CAPS), LGUI_T(KC_TAB), LCTL_T(KC_ENT), KC_LNG6, LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), _______, _______, TO(_ARROW)),
 
     [_NUMBER] = LAYOUT_universal(
         // 数字/記号レイヤー: 右手側中心で数字と記号を集約。
