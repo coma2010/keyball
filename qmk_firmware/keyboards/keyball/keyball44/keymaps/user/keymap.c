@@ -45,10 +45,11 @@ const uint16_t PROGMEM my_btn2[] = {KC_L, RSFT_T(KC_MINS), COMBO_END};
 // const uint16_t PROGMEM my_scrl_mo[] = {LGUI_T(KC_K), LALT_T(KC_L), COMBO_END};
 // const uint16_t PROGMEM my_scrl_mo2[] = {KC_K, LALT_T(KC_L), COMBO_END};
 const uint16_t PROGMEM my_scrl_mo3[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM my_tg3[] = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM my_tg3[] = {KC_O, KC_P, COMBO_END};
 const uint16_t PROGMEM my_bs[] = {KC_I, KC_O, COMBO_END};
 const uint16_t PROGMEM my_esc[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM my_tab[] = {KC_E, KC_R, COMBO_END};
+const uint16_t PROGMEM my_ent[] = {KC_U, KC_I, COMBO_END};
 
 combo_t key_combos[] = {
     // COMBO(my_up, KC_UP),
@@ -64,6 +65,7 @@ combo_t key_combos[] = {
     COMBO(my_bs, KC_BSPC),
     COMBO(my_esc, KC_ESC),
     COMBO(my_tab, KC_TAB),
+    COMBO(my_ent, KC_ENT),
 };
 
 // # define OVR_TGL KEY_OVERRIDE_TOGGLE
