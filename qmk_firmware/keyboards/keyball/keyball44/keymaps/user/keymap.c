@@ -50,8 +50,8 @@ const uint16_t PROGMEM my_bs[] = {KC_I, KC_O, COMBO_END};
 const uint16_t PROGMEM my_esc[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM my_tab[] = {KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM my_ent[] = {KC_U, KC_I, COMBO_END};
-const uint16_t PROGMEM my_caps[] = {KC_H, KC_J, COMBO_END};
-const uint16_t PROGMEM my_caps2[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM my_caps[] = {KC_M, KC_COMM, COMBO_END};
+const uint16_t PROGMEM my_caps2[] = {KC_H, KC_J, COMBO_END};
 
 combo_t key_combos[] = {
     // COMBO(my_up, KC_UP),
