@@ -50,6 +50,7 @@ const uint16_t PROGMEM my_bs[] = {KC_I, KC_O, COMBO_END};
 const uint16_t PROGMEM my_esc[] = {KC_W, KC_E, COMBO_END};
 const uint16_t PROGMEM my_tab[] = {KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM my_ent[] = {KC_U, KC_I, COMBO_END};
+const uint16_t PROGMEM my_caps[] = {KC_H, KC_J, COMBO_END};
 
 combo_t key_combos[] = {
     // COMBO(my_up, KC_UP),
@@ -66,6 +67,7 @@ combo_t key_combos[] = {
     COMBO(my_esc, KC_ESC),
     COMBO(my_tab, KC_TAB),
     COMBO(my_ent, KC_ENT),
+    COMBO(my_caps, KC_CAPS),
 };
 
 // # define OVR_TGL KEY_OVERRIDE_TOGGLE
@@ -121,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT] = LAYOUT_universal(
         // 基本レイヤー: 文字入力の主軸。Tap/Holdやレイヤー移動を多用する。
         KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
-        LCTL_T(KC_CAPS), LSFT_T(KC_A), KC_S, KC_D, LT(_BRACKET, KC_F), LT(_ARROW, KC_G), KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_MISC, KC_ENT),
+        LCTL_T(KC_CAPS), LSFT_T(KC_A), KC_S, KC_D, LT(_BRACKET, KC_F), LT(_ARROW, KC_G), KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LT(_ARROW, KC_ENT),
         LALT_T(KC_TAB), LGUI_T(KC_Z), LALT_T(KC_X), KC_C, KC_V, LT(_MOUSE, KC_B), KC_N, KC_M, KC_COMM, LALT_T(KC_DOT), LGUI_T(KC_SLSH), S(KC_INT1),
         S(JP_BSLS), LALT_T(KC_CAPS), LGUI_T(KC_TAB), LCTL_T(KC_ENT), KC_LNG6, LSFT_T(KC_BSPC), LT(_NUMBER, KC_SPC), _______, _______, TO(_ARROW)),
 
