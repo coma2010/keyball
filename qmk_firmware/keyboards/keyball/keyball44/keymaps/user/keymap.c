@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 基本レイヤー: 文字入力の主軸。Tap/Holdやレイヤー移動を多用する。
         KC_ESC, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,
         LCTL_T(KC_CAPS), LSFT_T(KC_A), KC_S, KC_D, LT(_BRACKET, KC_F), LT(_ARROW, KC_G), KC_H, KC_J, KC_K, KC_L, RSFT_T(KC_MINS), LCTL_T(KC_ENT),
-        LALT_T(KC_TAB), LALT_T(KC_Z), L_GUIT(KC_X), LCTL_T(KC_C), KC_V, LT(_MOUSE, KC_B), KC_N, KC_M, LCTL_T(KC_COMM), LGUI_T(KC_DOT), LALT_T(KC_SLSH), S(KC_INT1),
+        LALT_T(KC_TAB), LALT_T(KC_Z), LGUI_T(KC_X), LCTL_T(KC_C), KC_V, LT(_MOUSE, KC_B), KC_N, KC_M, LCTL_T(KC_COMM), LGUI_T(KC_DOT), LALT_T(KC_SLSH), S(KC_INT1),
         S(JP_BSLS), LALT_T(KC_CAPS), LGUI_T(KC_TAB), LCTL_T(KC_ENT), KC_LNG6, LT(_ARROW, KC_BSPC), LT(_NUMBER, KC_SPC), _______, _______, TO(_ARROW)),
 
     [_NUMBER] = LAYOUT_universal(
